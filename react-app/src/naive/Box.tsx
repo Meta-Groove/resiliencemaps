@@ -49,7 +49,7 @@ export const Box: React.FC<BoxProps> = ({
 	}
 	return (
 		<div ref={drag} style={{ ...style, left, top }}>
-			<a href='#'>Line</a>
+			{/*<a href='#'>Line</a>*/}
 
 			{children}
 			{/*<DrawStuff></DrawStuff>*/}

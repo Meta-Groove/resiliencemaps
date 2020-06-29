@@ -6,6 +6,7 @@ import update from 'immutability-helper'
 import { DragItem } from './interfaces'
 import background from '../img/dartboardExample.png'
 import SCIMDartboard from "../scim-dartboard";
+import ConnectNodes from "./ConnectNodes";
 import { CoordBox } from '../CoordBox.js'
 import { DrawStuff } from "../DrawStuff";
 // import AddBoxes from './AddBoxes'
@@ -45,7 +46,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		cooling: { top: 475, left: 610, title: 'Cooling' },
 		home: { top: 520, left: 610, title: 'Home' },
 		heating: { top: 565, left: 610, title: 'Heating' },
-		powerStation: { top: 625, left: 715, title: "Power Stations", connectedTo: ['cooking', 'heating', 'cooling', 'tapWater'] },
+		powerStation: { top: 625, left: 715, title: "Power Stations", connectedTo: ['cooking', 'heating', 'cooling'] },
 		sewagePlant: { top: 500, left: 270, title: 'Sewage Plant' },
 		waterPlant: { top: 540, left: 270, title: 'Water Plant' },
 		toilet: { top: 500, left: 345, title: 'Toilet' },
@@ -162,12 +163,12 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{Object.keys(boxes).map((key) => {
 				const { left, top, title, connectedTo } = boxes[key]
 				return (
-					<div className="aConnection">
-						<div>
+					// <div className="aConnection">
+						<div key={"box"+key}>
 						{/*<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="200px">*/}
 						{/*	<line x1={left} y1={top} x2="1" y2="1" stroke="blue" stroke-width="5" />*/}
 						{/*</svg>*/}
-						</div>
+						{/*</div>*/}
 					{/*<CoordBox/>*/}
 						<Box
 							key={key}

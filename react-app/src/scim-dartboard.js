@@ -3,6 +3,7 @@ import React from 'react';
 // so we have the board as a react component
 
 import ConnectNodes from './naive/ConnectNodes';
+import  hash from 'object-hash';
 
 // export interface scimDartboardProps {
 //   connections: Array<any>
@@ -74,7 +75,7 @@ const SCIMDartboard = (props) => {
         {/*<svg height="100" width="100">*/}
         {/*  <rect width="100%" height="100%" fill="green" />*/}
         {/*  <circle cx="50" cy="50" r="40" stroke="black"*/}
-        {/*          stroke-width="3" fill="red" />*/}
+        {/*          strokeWidth="3" fill="red" />*/}
         {/*</svg>*/}
       {/* @todo swap out properties as objects so can define wih sliders and such -- can use react hooks for those */}
       {/* */}
@@ -83,23 +84,23 @@ const SCIMDartboard = (props) => {
         <defs>
           <radialGradient id="dartboardGradient">
 
-          <stop offset={"0%"} stop-color={"#ffffff"}/>
-            <stop offset={"20%"} stop-color={'#33cc33'}/>
-            <stop offset={"100%"} stop-color="#ffffff"/>
+          <stop offset={"0%"} stopColor={"#ffffff"}/>
+            <stop offset={"20%"} stopColor={'#33cc33'}/>
+            <stop offset={"100%"} stopColor="#ffffff"/>
           </radialGradient>
         </defs>
 
 
         <circle className="bgGradient" cx={defaultCenter} cy={defaultCenter} r="360" fill="none" fill={"url(#dartboardGradient)"} />
 
-        <circle className="theIndividual" cx={defaultCenter} cy={defaultCenter} r="80" fill="white" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
-        <circle className="thePerson" cx={defaultCenter} cy={defaultCenter} r="120" fill="none" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
-        <circle className="theHome" cx={defaultCenter} cy={defaultCenter} r="160" fill="none" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
-        <circle className="theVillage" cx={defaultCenter} cy={defaultCenter} r="200" fill="none" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
-        <circle className="theTown" cx={defaultCenter} cy={defaultCenter} r="240" fill="none" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
-        <circle className="theRegion" cx={defaultCenter} cy={defaultCenter} r="280" fill="none" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
-        <circle className="theCountry" cx={defaultCenter} cy={defaultCenter} r="320" fill="none" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
-        <circle className="theWorld" cx={defaultCenter} cy={defaultCenter} r="360" fill="none" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
+        <circle className="theIndividual" cx={defaultCenter} cy={defaultCenter} r="80" fill="white" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
+        <circle className="thePerson" cx={defaultCenter} cy={defaultCenter} r="120" fill="none" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
+        <circle className="theHome" cx={defaultCenter} cy={defaultCenter} r="160" fill="none" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
+        <circle className="theVillage" cx={defaultCenter} cy={defaultCenter} r="200" fill="none" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
+        <circle className="theTown" cx={defaultCenter} cy={defaultCenter} r="240" fill="none" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
+        <circle className="theRegion" cx={defaultCenter} cy={defaultCenter} r="280" fill="none" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
+        <circle className="theCountry" cx={defaultCenter} cy={defaultCenter} r="320" fill="none" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
+        <circle className="theWorld" cx={defaultCenter} cy={defaultCenter} r="360" fill="none" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
 
         {/* style={{fill: "#dartboardGradient"}}*/}
 
@@ -107,10 +108,10 @@ const SCIMDartboard = (props) => {
 
         {/* maybe add invisible outer */}
 
-        <line className="horizontalDivider" x1="100" y1="500" x2="900" y2="500" stroke="green" stroke-width="5" />
-        {/*<line className="verticalDivider" x1="500" y1="100" x2="500" y2="900" stroke="green" stroke-width="5" />*/}
-        <line className="eastAngleDivider" x1="200" y1="200" x2="800" y2="800" stroke="green" stroke-width="5" />
-        <line className="westAngleDivider" x1="200" y1="800" x2="800" y2="200" stroke="green" stroke-width="5" />
+        <line className="horizontalDivider" x1="100" y1="500" x2="900" y2="500" stroke="green" strokeWidth="5" />
+        {/*<line className="verticalDivider" x1="500" y1="100" x2="500" y2="900" stroke="green" strokeWidth="5" />*/}
+        <line className="eastAngleDivider" x1="200" y1="200" x2="800" y2="800" stroke="green" strokeWidth="5" />
+        <line className="westAngleDivider" x1="200" y1="800" x2="800" y2="200" stroke="green" strokeWidth="5" />
 
 
 
@@ -118,27 +119,27 @@ const SCIMDartboard = (props) => {
         {/* hmm these should be percentages */}
         {/* ways to die */}
         {/*can we wrap all in a default font size to carry on ot children */}
-        <text x="500" y="100" font-size="2em" text-anchor="middle">injury</text>
-        <text x="500" y="900" font-size="2em" text-anchor="middle">hunger</text>
-        <text x="100" y="700" font-size="2em" text-anchor="middle">thirst</text>
-        <text x="900" y="700" font-size="2em" text-anchor="middle">too cold</text>
-        <text x="900" y="300" font-size="2em" text-anchor="middle">too hot</text>
-        <text x="100" y="300" font-size="2em" text-anchor="middle">illness</text>
+        <text x="500" y="100" fontSize="2em" textAnchor="middle">injury</text>
+        <text x="500" y="900" fontSize="2em" textAnchor="middle">hunger</text>
+        <text x="100" y="700" fontSize="2em" textAnchor="middle">thirst</text>
+        <text x="900" y="700" fontSize="2em" textAnchor="middle">too cold</text>
+        <text x="900" y="300" fontSize="2em" textAnchor="middle">too hot</text>
+        <text x="100" y="300" fontSize="2em" textAnchor="middle">illness</text>
 
 
 
 
         {/* dupe edit for consistency */}
-        <circle className="theIndividual" cx={defaultCenter} cy={defaultCenter} r="80" fill="white" stroke={defaultStroke} stroke-width={defaultStrokeWidth} />
+        <circle className="theIndividual" cx={defaultCenter} cy={defaultCenter} r="80" fill="white" stroke={defaultStroke} strokeWidth={defaultStrokeWidth} />
 
-        <text x="500" y="505" font-size="2em" text-anchor="middle">Individual</text>
-        <text x="500" y="405" font-size="1em" text-anchor="middle">Person</text>
-        <text x="500" y="365" font-size="1em" text-anchor="middle">Home</text>
-        <text x="500" y="325" font-size="1em" text-anchor="middle">Village</text>
-        <text x="500" y="285" font-size="1em" text-anchor="middle">Town</text>
-        <text x="500" y="245" font-size="1em" text-anchor="middle">Region</text>
-        <text x="500" y="205" font-size="1em" text-anchor="middle">Country</text>
-        <text x="500" y="165" font-size="1em" text-anchor="middle">World</text>
+        <text x="500" y="505" fontSize="2em" textAnchor="middle">Individual</text>
+        <text x="500" y="405" fontSize="1em" textAnchor="middle">Person</text>
+        <text x="500" y="365" fontSize="1em" textAnchor="middle">Home</text>
+        <text x="500" y="325" fontSize="1em" textAnchor="middle">Village</text>
+        <text x="500" y="285" fontSize="1em" textAnchor="middle">Town</text>
+        <text x="500" y="245" fontSize="1em" textAnchor="middle">Region</text>
+        <text x="500" y="205" fontSize="1em" textAnchor="middle">Country</text>
+        <text x="500" y="165" fontSize="1em" textAnchor="middle">World</text>
 
         {/*{Object.keys(boxes).map((key) => {*/}
 
@@ -153,18 +154,19 @@ const SCIMDartboard = (props) => {
       {/* spectrum of regions */}
       {/* how do we get visual harmony */}
 
-        <text x="500" y="100" font-size="2em" text-anchor="middle">injury</text>
+        <text x="500" y="100" fontSize="2em" textAnchor="middle">injury</text>
 
-
-
-        {/*<line x1={connections[0].x1} y1={connections[0].y1} x2={connections[0].x2} y2={connections[0].y2} stroke="blue" stroke-width="20" />*/}
-        <ConnectNodes id="foo" connections={props.connections} boxes={props.boxes}/>
-
-
+        <ConnectNodes id="foo" key={hash(props.connections)} connections={props.connections} boxes={props.boxes}/>
 
       </svg>
+        {/*<line x1={connections[0].x1} y1={connections[0].y1} x2={connections[0].x2} y2={connections[0].y2} stroke="blue" strokeWidth="20" />*/}
+
+
+
+
+
       {/*<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="200px">*/}
-      {/*	<line x1={500} y1={500} x2="1" y2="1" stroke="blue" stroke-width="20" />*/}
+      {/*	<line x1={500} y1={500} x2="1" y2="1" stroke="blue" strokeWidth="20" />*/}
       {/*</svg>*/}
 
       {/*<ConnectNodes connections={props.connections} boxes={props.boxes}/>*/}

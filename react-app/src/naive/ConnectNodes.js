@@ -8,7 +8,7 @@ import  hash from 'object-hash';
 
 import DrawALine from "./DrawALine";
 
-export default function DrawAline(props) {
+export default function ConnectNodes(props) {
 
   // should we be using state
   console.log('wtf', props)
@@ -48,10 +48,10 @@ export default function DrawAline(props) {
   // just need an extra layer of iteration and we're done -- this would defo be much better as arrays... then
   // dont have to kill elements -- which in themselves might cause problems later.
   // do we just need a conditional here for return null or ....?
-
+//
 
 return (
-  <svg key={hash(lineCoords)} xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000px" height="1000px">
+  <svg key={'svg'+hash(lineCoords)} xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000px" height="1000px">
 
     ({ Object.keys(lineCoords).map((key) => {
       return Object.keys(lineCoords[key]).map((i) => {
@@ -59,21 +59,32 @@ return (
 
         return (
 
-          <div className="aConnection">
-              <DrawALine
-                x1={lineCoords[key][i][0]}
-                y1={lineCoords[key][i][1]}
-                x2={lineCoords[key][i][2]}
-                y2={lineCoords[key][i][3]} // this is kinda horrific. refactor.
-              />
-          </div>
+          <line
+            key = {hash(props)}
+            x1={lineCoords[key][i][0]}
+            y1={lineCoords[key][i][1]}
+            x2={lineCoords[key][i][2]}
+            y2={lineCoords[key][i][3]}
+            stroke="black"
+            strokeWidth="5"
+            strokeLinecap="butt"
+          />
+          // <div className="aConnection">
+          //     <DrawALine
+          //       key={'line'+hash(lineCoords[key])}
+          //       x1={lineCoords[key][i][0]}
+          //       y1={lineCoords[key][i][1]}
+          //       x2={lineCoords[key][i][2]}
+          //       y2={lineCoords[key][i][3]} // this is kinda horrific. refactor.
+          //     />
+          // </div>
         )
       })
       // {console.log('m', lineCoords[key])}
 
       })}
     </svg>
-)
+) || null
   // )
     //)
 }
