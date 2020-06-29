@@ -13,8 +13,6 @@ import { DrawStuff } from "../DrawStuff";
 // !!!!! @todo export as PNG ...
 // !!!!!! @todo ability to delete box
 // !!!!! @todo remove same node from connecting node in list
-
-
 const styles: React.CSSProperties = {
 	width: 1024,
 	height: 1024,
@@ -44,31 +42,32 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		//	need to calculate center
 		}
 	}>({
-		hospital: { top: 364, left: 315, title: 'Hospital' },
+		hospital: { top: 364, left: 315, title: 'Hospital', connectedTo: []},
 		cooking: { top: 645, left: 540, title: 'Cooking', connectedTo: ['tapWater', 'kitchenStores'] },
-		police: { top: 315, left: 580, title: 'Police' },
-		military: { top: 250, left: 610, title: 'Military' },
-		cooling: { top: 475, left: 610, title: 'Cooling' },
-		home: { top: 520, left: 610, title: 'Home' },
-		heating: { top: 565, left: 610, title: 'Heating' },
+		police: { top: 315, left: 580, title: 'Police', connectedTo: [] },
+		military: { top: 250, left: 610, title: 'Military', connectedTo: [] },
+		cooling: { top: 475, left: 610, title: 'Cooling', connectedTo: [] },
+		home: { top: 520, left: 610, title: 'Home', connectedTo: [] },
+		heating: { top: 565, left: 610, title: 'Heating', connectedTo: [] },
 		powerStation: { top: 625, left: 715, title: "Power \nStations", connectedTo: ['cooking', 'heating', 'cooling'] },
 		sewagePlant: { top: 500, left: 270, title: 'Sewage \nPlant', connectedTo: ['toilet'] },
 		waterPlant: { top: 540, left: 270, title: 'Water \nPlant', connectedTo: ['toilet', 'tapWater'] },
-		toilet: { top: 500, left: 345, title: 'Toilet' },
-		tapWater: { top: 540, left: 345, title: 'Tap \nWater' },
-		kitchenStores: { top: 645, left: 415, title: 'Kitchen \nStores' },
-		foodShops: { top: 735, left: 445, title: 'Food \nShops' },
-		foodMarkets: { top: 840, left: 415, title: 'Food \nMarkets' },
-		fuelMarkets: { top: 815, left: 590, title: 'Fuel \nMarkets' },
-		energyMarkets: { top: 700, left: 725, title: 'Food \nMarkets' },
+		toilet: { top: 500, left: 345, title: 'Toilet', connectedTo: [] },
+		tapWater: { top: 540, left: 345, title: 'Tap \nWater', connectedTo: [] },
+		kitchenStores: { top: 645, left: 415, title: 'Kitchen \nStores' , connectedTo: []},
+		foodShops: { top: 735, left: 445, title: 'Food \nShops', connectedTo: []},
+		foodMarkets: { top: 840, left: 415, title: 'Food \nMarkets', connectedTo: [] },
+		fuelMarkets: { top: 815, left: 590, title: 'Fuel \nMarkets', connectedTo: [] },
+		energyMarkets: { top: 700, left: 725, title: 'Food \nMarkets', connectedTo: [] },
 	})
 
 	const [textBox, setTextBox] = useState('')
+	const [lineFrom, setLineFrom] = useState('')
+	const [lineTo, setLineTo] = useState('')
+	const [itemToRemove, setItemToRemove] = useState('')
 
 	// hmmmmm, dont seem to be able to get the text to split over lines when rendered
 	// maybe should just manually draw on all the other stuff...!?
-
-
 
 	// convert to svg
 	// create anchor at centre point of text instead of at corner of box
@@ -99,25 +98,68 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 	const addAnother = (e: any) => {
 		e.preventDefault();
 		const cleaned = cleanText(textBox);
-		setBoxes({...boxes, [cleaned]: {top: 50, left: 450, title: textBox}})
+		setBoxes({...boxes, [cleaned]: {top: 50, left: 450, title: textBox, connectedTo: []}})
 	}
 
 	const updateText = (e: any) => {
 		console.log('where is the value we need: ', (e));
-		console.log('cleaning: ', cleanText(e.target.value));
-		setTextBox(e.target.value);
+		console.log('cleaning: ', cleanText(e.target.value))
+		setTextBox(e.target.value)
 	}
 
 	const cleanText = (text: string) => {
-		return text.replace(/[`~!@#$ £%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+		return text.replace(/[`~!@#$ £%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
 	}
+
+	const updateLineFrom = (e: any) => {
+		setLineFrom(e.target.value)
+	}
+
+	const updateLineTo = (e: any) => {
+		setLineTo(e.target.value)
+	}
+
+	const connectLines = (e: any) => {
+		e.preventDefault()
+		const box = boxes[lineFrom];
+		const allBoxes = boxes
+		// @ts-ignore
+		allBoxes[lineFrom].connectedTo.push(lineTo)
+		// check item exists on array
+		setBoxes({...allBoxes})
+		// hmmmm, what is going on... mebs because of how updates are gand
+		// setBoxes(
+		// 	update(boxes, {
+		// 		[lineFrom]: {
+		// 			$merge: { left, top },
+		// 		},
+		// 	}),
+	//	)
+
+		console.log(e)
+		console.log(lineFrom)
+		console.log(lineTo)
+		console.log(boxes)
+	}
+
+	const updateSelectRemove = (e: any) => {
+		setItemToRemove(e.target.value)
+		console.log('td',e.target.value )
+	}
+
+	const removeBox = (e: any) => {
+		e.preventDefault()
+		const allBoxes = boxes
+		delete allBoxes[itemToRemove]
+		setBoxes({...allBoxes})
+		console.log('AB', allBoxes)
+	}
+
 
 
 	// get coords of powwer station and then get coords of cooking
 	// this should actually translate to x1,y1,x2,y2
-
 	let connection = [{x1: boxes.powerStation.top, y1: boxes.powerStation.left,  x2: boxes.cooking.top, y2: boxes.cooking.left}]
-
 	// do something that gives connections but here... hard code them
 	// so.... we can access state and pass that down to the thing to draw graphics...
 	// give them all a div tag so can removed when is about to update
@@ -128,7 +170,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		<div>
 			<form id="addAnother" onSubmit={addAnother}>
 				<label>
-					Add an Item
+					Add Item
 					<input type="text" value={textBox} placeholder="title" onChange={updateText} />
 				</label>
 				<input type="submit" value="Create" />
@@ -136,15 +178,27 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			<form>
 				<label htmlFor="connectFrom">Connect</label>
 
-				<select name="connectFrom" id="connectFromSelect">
+				<select name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
+					<option key={'selectLineFrom'} value={'selectLineFrom'}>Select</option>
 					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
 				</select>
 
 				<label htmlFor="connectTo">To</label>
-				<select name="connectFrom" id="connectFromSelect">
+				<select name="connectFrom" id="connectFromSelect" onChange={updateLineTo}>
+					<option key={'selectLineTo'} value={'selectLineTo'}>Select</option>
 					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
 				</select>
-				<input type="submit" value="Connect" />
+
+				<button type="submit" value="submit" onClick={connectLines}>Connect</button>
+			</form>
+			<form>
+				<label htmlFor={'removeBox'}>Remove Item</label>
+
+				<select name={'removeBox'} onChange={updateSelectRemove}>
+					<option key={'selectRemove'} value={'selectRemove'} >Select</option>
+					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
+				</select>
+				<button type={"submit"} value={"submit"} onClick={removeBox}>Remove</button>
 			</form>
 
 		<div ref={drop} style={styles}>

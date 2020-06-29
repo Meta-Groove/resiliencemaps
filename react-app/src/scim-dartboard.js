@@ -12,7 +12,6 @@ import  hash from 'object-hash';
 // Have to rename this file so can use standard conventiosn when oncluding TS
 // https://fettblog.eu/typescript-react/components/
 
-
 const SCIMDartboard = (props) => {
   console.log('these are props dart', props)
   // console.log('bbboxes', boxes)
