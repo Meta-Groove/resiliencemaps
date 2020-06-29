@@ -24,7 +24,7 @@ export interface ContainerProps {
 }
 
 export interface ContainerState {
-	boxes: { [key: string]: { top: number; left: number; title: string } }
+	boxes: { [key: string]: { top: number; left: number; title: string, connectedTo?: Array<any> } }
 }
 
 export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
@@ -33,7 +33,8 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			top: number
 			left: number
 			title: string
-			connection?: Array<string>
+			connectedTo?: Array<any>
+			// boxes?: Object
 		//	need to calculate center
 		}
 	}>({
@@ -44,7 +45,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		cooling: { top: 475, left: 610, title: 'Cooling' },
 		home: { top: 520, left: 610, title: 'Home' },
 		heating: { top: 565, left: 610, title: 'Heating' },
-		powerStation: { top: 625, left: 715, title: "Power Stations" },
+		powerStation: { top: 625, left: 715, title: "Power Stations", connectedTo: ['cooking', 'heating', 'cooling', 'tapWater'] },
 		sewagePlant: { top: 500, left: 270, title: 'Sewage Plant' },
 		waterPlant: { top: 540, left: 270, title: 'Water Plant' },
 		toilet: { top: 500, left: 345, title: 'Toilet' },
@@ -54,8 +55,6 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		foodMarkets: { top: 840, left: 415, title: 'Food Markets' },
 		fuelMarkets: { top: 815, left: 590, title: 'Fuel Markets' },
 		energyMarkets: { top: 700, left: 725, title: 'Food Markets' },
-
-
 	})
 
 	const [textBox, setTextBox] = useState('')
@@ -108,8 +107,20 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		return text.replace(/[`~!@#$ £%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
 	}
 
+
+	// get coords of powwer station and then get coords of cooking
+	// this should actually translate to x1,y1,x2,y2
+
+	let connection = [{x1: boxes.powerStation.top, y1: boxes.powerStation.left,  x2: boxes.cooking.top, y2: boxes.cooking.left}]
+
+	// do something that gives connections but here... hard code them
+	// so.... we can access state and pass that down to the thing to draw graphics...
+	// give them all a div tag so can removed when is about to update
+	const nodeConnections:Array<any> = connection//[{x1:0, y1: 0, x2: 100, y2:100 }]
+	//!!!! actually this should be in state!!!!!
+
 	return (
-		<div ref={drop} style={styles}>
+		<div>
 			<form onSubmit={addAnother}>
 				<label>
 					Title:
@@ -117,6 +128,15 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				</label>
 				<input type="submit" value="Create" />
 			</form>
+
+		<div ref={drop} style={styles}>
+			{/*<form onSubmit={addAnother}>*/}
+			{/*	<label>*/}
+			{/*		Title:*/}
+			{/*		<input type="text" value={textBox} placeholder="enter text" onChange={updateText} />*/}
+			{/*	</label>*/}
+			{/*	<input type="submit" value="Create" />*/}
+			{/*</form>*/}
 			{/*<Box*/}
 			{/*	key={'foo'}*/}
 			{/*	id={'foo'}*/}
@@ -127,25 +147,44 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*	Hello world*/}
 			{/*</Box>*/}
 			{/*<AddBoxes/>*/}
-			<SCIMDartboard />
-			{Object.keys(boxes).map((key) => {
-				const { left, top, title } = boxes[key]
-				return (
-					<div>
-					{/*<CoordBox/>*/}
-					<Box
-						key={key}
-						id={key}
-						left={left}
-						top={top}
-						hideSourceOnDrag={hideSourceOnDrag}
 
-					>
-						{title}
-					</Box>
+			{/*<SCIMDartboard connections={nodeConnections}/>*/}
+			<SCIMDartboard connections={connection} boxes={boxes}/>
+			{/*uhm.... why????*/}
+
+			{/*return {Object.keys(boxes).map((key) => {}*/}
+
+
+			{/*<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="200px">*/}
+			{/*	<line x1={500} y1={500} x2="1" y2="1" stroke="blue" stroke-width="5" />*/}
+			{/*</svg>*/}
+
+			{Object.keys(boxes).map((key) => {
+				const { left, top, title, connectedTo } = boxes[key]
+				return (
+					<div className="aConnection">
+						<div>
+						{/*<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="200px">*/}
+						{/*	<line x1={left} y1={top} x2="1" y2="1" stroke="blue" stroke-width="5" />*/}
+						{/*</svg>*/}
+						</div>
+					{/*<CoordBox/>*/}
+						<Box
+							key={key}
+							id={key}
+							left={left}
+							top={top}
+							hideSourceOnDrag={hideSourceOnDrag}
+							// connectedTo={connection}
+						>
+
+							{title}
+
+						</Box>
 					</div>
 				)
 			})}
+		</div>
 		</div>
 	)
 }

@@ -2,12 +2,29 @@ import React from 'react';
 // import * as d3 from "d3";
 // so we have the board as a react component
 
-const SCIMDartboard = () => {
+import ConnectNodes from './naive/ConnectNodes';
 
+// export interface scimDartboardProps {
+//   connections: Array<any>
+// }
+
+// Have to rename this file so can use standard conventiosn when oncluding TS
+// https://fettblog.eu/typescript-react/components/
+
+
+const SCIMDartboard = (props) => {
+  console.log('these are props dart', props)
+  // console.log('bbboxes', boxes)
   const defaultStroke = 'black';
   const defaultStrokeWidth = '3';
   const defaultScale = 1000;
   const defaultCenter = defaultScale / 2;
+
+  // if (connects.length === 0) {
+  //   connections = new Array()
+  // };
+  //
+  // connectNodes
 
 
   // setState object
@@ -15,6 +32,27 @@ const SCIMDartboard = () => {
     strokeColor:'black',
   }
 
+
+  // fix this ...
+  // index.js:1 Warning: Each child in a list should have a unique "key" prop.
+  //
+  // Check the render method of `Container`. See https://fb.me/react-warning-keys for more information.
+  //     in div (at Container.tsx:155)
+  //     in Container (at Example.tsx:13)
+
+  // generate links inside of svg grab them here...
+  // console.log('where is it', connections)
+
+  // if (connections && connections.length > 0) {
+  //   connections.forEach(() => {
+  //
+  //   })
+  // }
+
+
+
+  // fab!!!! cycle through these and then we have our connectors...
+  // then we can create a thing to draw them....
 
   return (
     <div>
@@ -102,7 +140,7 @@ const SCIMDartboard = () => {
         <text x="500" y="205" font-size="1em" text-anchor="middle">Country</text>
         <text x="500" y="165" font-size="1em" text-anchor="middle">World</text>
 
-
+        {/*{Object.keys(boxes).map((key) => {*/}
 
         {/*<text x="0" y="0" font-size="2em" text-anchor="middle">Individual</text>*/}
         {/*<text x="0" y="0" font-size="2em" text-anchor="middle">Individual</text>*/}
@@ -116,11 +154,32 @@ const SCIMDartboard = () => {
       {/* how do we get visual harmony */}
 
         <text x="500" y="100" font-size="2em" text-anchor="middle">injury</text>
+
+
+
+        {/*<line x1={connections[0].x1} y1={connections[0].y1} x2={connections[0].x2} y2={connections[0].y2} stroke="blue" stroke-width="20" />*/}
+        <ConnectNodes id="foo" connections={props.connections} boxes={props.boxes}/>
+
+
+
       </svg>
+      {/*<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="200px">*/}
+      {/*	<line x1={500} y1={500} x2="1" y2="1" stroke="blue" stroke-width="20" />*/}
+      {/*</svg>*/}
+
+      {/*<ConnectNodes connections={props.connections} boxes={props.boxes}/>*/}
 
 
     </div>
   );
 }
+// export interface BoxProps {
+//   nodeConnections?: Array<any>
+//   // id: any
+//   // left: number
+//   // top: number
+//   // hideSourceOnDrag?: boolean
+//   // connectedTo?: Array<any> // should probably generate a hash and also need to tidy up all the promiscuous anys...
+// }
 
 export default SCIMDartboard;

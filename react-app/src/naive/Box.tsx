@@ -27,7 +27,7 @@ export interface BoxProps {
 	left: number
 	top: number
 	hideSourceOnDrag?: boolean
-	connectedTo?: string // should probably generate a hash
+	connectedTo?: Array<any> // should probably generate a hash and also need to tidy up all the promiscuous anys...
 }
 
 export const Box: React.FC<BoxProps> = ({
@@ -49,6 +49,8 @@ export const Box: React.FC<BoxProps> = ({
 	}
 	return (
 		<div ref={drag} style={{ ...style, left, top }}>
+			<a href='#'>Line</a>
+
 			{children}
 			{/*<DrawStuff></DrawStuff>*/}
 			{/*{top} {left}*/}
