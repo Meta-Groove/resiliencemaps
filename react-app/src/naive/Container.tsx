@@ -5,11 +5,15 @@ import { Box } from './Box'
 import update from 'immutability-helper'
 import { DragItem } from './interfaces'
 import background from '../img/dartboardExample.png'
-import SCIMDartboard from "../scim-dartboard";
+import SCIMDartboard from "../scim-dartboard"
 import ConnectNodes from "./ConnectNodes";
 import { CoordBox } from '../CoordBox.js'
 import { DrawStuff } from "../DrawStuff";
 // import AddBoxes from './AddBoxes'
+// !!!!! @todo export as PNG ...
+// !!!!!! @todo ability to delete box
+// !!!!! @todo remove same node from connecting node in list
+
 
 const styles: React.CSSProperties = {
 	width: 1024,
@@ -17,6 +21,7 @@ const styles: React.CSSProperties = {
 	border: '1px solid black',
 	position: 'relative',
 	backgroundImage: background,
+	whiteSpace: 'break-spaces'
 	//backgroundColor: 'blue'
 }
 
@@ -40,22 +45,22 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		}
 	}>({
 		hospital: { top: 364, left: 315, title: 'Hospital' },
-		cooking: { top: 645, left: 540, title: 'Cooking' },
+		cooking: { top: 645, left: 540, title: 'Cooking', connectedTo: ['tapWater', 'kitchenStores'] },
 		police: { top: 315, left: 580, title: 'Police' },
 		military: { top: 250, left: 610, title: 'Military' },
 		cooling: { top: 475, left: 610, title: 'Cooling' },
 		home: { top: 520, left: 610, title: 'Home' },
 		heating: { top: 565, left: 610, title: 'Heating' },
-		powerStation: { top: 625, left: 715, title: "Power Stations", connectedTo: ['cooking', 'heating', 'cooling'] },
-		sewagePlant: { top: 500, left: 270, title: 'Sewage Plant' },
-		waterPlant: { top: 540, left: 270, title: 'Water Plant' },
+		powerStation: { top: 625, left: 715, title: "Power \nStations", connectedTo: ['cooking', 'heating', 'cooling'] },
+		sewagePlant: { top: 500, left: 270, title: 'Sewage \nPlant', connectedTo: ['toilet'] },
+		waterPlant: { top: 540, left: 270, title: 'Water \nPlant', connectedTo: ['toilet', 'tapWater'] },
 		toilet: { top: 500, left: 345, title: 'Toilet' },
-		tapWater: { top: 540, left: 345, title: 'Tap Water' },
-		kitchenStores: { top: 645, left: 415, title: 'Kitchen Stores' },
-		foodShops: { top: 735, left: 445, title: 'Food Shops' },
-		foodMarkets: { top: 840, left: 415, title: 'Food Markets' },
-		fuelMarkets: { top: 815, left: 590, title: 'Fuel Markets' },
-		energyMarkets: { top: 700, left: 725, title: 'Food Markets' },
+		tapWater: { top: 540, left: 345, title: 'Tap \nWater' },
+		kitchenStores: { top: 645, left: 415, title: 'Kitchen \nStores' },
+		foodShops: { top: 735, left: 445, title: 'Food \nShops' },
+		foodMarkets: { top: 840, left: 415, title: 'Food \nMarkets' },
+		fuelMarkets: { top: 815, left: 590, title: 'Fuel \nMarkets' },
+		energyMarkets: { top: 700, left: 725, title: 'Food \nMarkets' },
 	})
 
 	const [textBox, setTextBox] = useState('')
@@ -95,7 +100,6 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		e.preventDefault();
 		const cleaned = cleanText(textBox);
 		setBoxes({...boxes, [cleaned]: {top: 50, left: 450, title: textBox}})
-
 	}
 
 	const updateText = (e: any) => {
@@ -122,12 +126,25 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 
 	return (
 		<div>
-			<form onSubmit={addAnother}>
+			<form id="addAnother" onSubmit={addAnother}>
 				<label>
-					Title:
-					<input type="text" value={textBox} placeholder="enter text" onChange={updateText} />
+					Add an Item
+					<input type="text" value={textBox} placeholder="title" onChange={updateText} />
 				</label>
 				<input type="submit" value="Create" />
+			</form>
+			<form>
+				<label htmlFor="connectFrom">Connect</label>
+
+				<select name="connectFrom" id="connectFromSelect">
+					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
+				</select>
+
+				<label htmlFor="connectTo">To</label>
+				<select name="connectFrom" id="connectFromSelect">
+					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
+				</select>
+				<input type="submit" value="Connect" />
 			</form>
 
 		<div ref={drop} style={styles}>

@@ -1,7 +1,5 @@
 // wtf, things seem ok.. value all seem to be correct but nothing is being returned...
 
-
-
 import React from 'react';
 import {Box} from "./Box";
 import  hash from 'object-hash';
@@ -51,6 +49,7 @@ export default function ConnectNodes(props) {
 //
 
 return (
+  // mebs can move the SVG wrapper up a level
   <svg key={'svg'+hash(lineCoords)} xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000px" height="1000px">
 
     ({ Object.keys(lineCoords).map((key) => {
@@ -61,10 +60,10 @@ return (
 
           <line
             key = {hash(props)}
-            x1={lineCoords[key][i][0]}
-            y1={lineCoords[key][i][1]}
-            x2={lineCoords[key][i][2]}
-            y2={lineCoords[key][i][3]}
+            x1={lineCoords[key][i][0]+5}
+            y1={lineCoords[key][i][1]+20}
+            x2={lineCoords[key][i][2]+5}
+            y2={lineCoords[key][i][3]+20}
             stroke="black"
             strokeWidth="5"
             strokeLinecap="butt"

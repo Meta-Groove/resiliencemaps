@@ -18,8 +18,9 @@ const style: React.CSSProperties = {
 	position: 'absolute',
 	border: '1px dashed gray',
 	backgroundColor: 'white',
-	padding: '0.2rem 0.4rem',
+	padding: '0.2rem 0.2rem',
 	cursor: 'move',
+	fontSize: '0.7em'
 }
 
 export interface BoxProps {
