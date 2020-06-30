@@ -162,20 +162,24 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 
 	const removeBox = (e: any) => {
 		e.preventDefault()
-		const allBoxes = boxes
+		let allBoxes = boxes
+		// @ts-ignore
+		Object.keys(allBoxes).map((key) => {
+			// @ts-ignore
+			allBoxes[key].connectedTo = allBoxes[key].connectedTo.filter(item => item !== itemToRemove)
+		})
 		delete allBoxes[itemToRemove]
 		setBoxes({...allBoxes})
-		//console.log('AB', allBoxes)
 	}
 
 
 	//!!!!!! @todo fix this --- was a demo bit at one point but doesnt work when removing
 
-	let connection = [{x1: boxes.powerStation.top, y1: boxes.powerStation.left,  x2: boxes.cooking.top, y2: boxes.cooking.left}]
+//	let connection = [{x1: boxes.powerStation.top, y1: boxes.powerStation.left,  x2: boxes.cooking.top, y2: boxes.cooking.left}]
 	// do something that gives connections but here... hard code them
 	// so.... we can access state and pass that down to the thing to draw graphics...
 	// give them all a div tag so can removed when is about to update
-	const nodeConnections:Array<any> = connection//[{x1:0, y1: 0, x2: 100, y2:100 }]
+	//const nodeConnections:Array<any> = connection//[{x1:0, y1: 0, x2: 100, y2:100 }]
 	//!!!! actually this should be in state!!!!!
 
 	return (
@@ -235,7 +239,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*<AddBoxes/>*/}
 
 			{/*<SCIMDartboard connections={nodeConnections}/>*/}
-			<SCIMDartboard connections={connection} boxes={boxes}/>
+			<SCIMDartboard boxes={boxes}/>
 			{/*uhm.... why????*/}
 
 			{/*return {Object.keys(boxes).map((key) => {}*/}

@@ -155,7 +155,10 @@ const SCIMDartboard = (props) => {
 
         <text x="500" y="100" fontSize="2em" textAnchor="middle">injury</text>
 
-        <ConnectNodes id="foo" key={hash(props.connections)} connections={props.connections} boxes={props.boxes}/>
+
+
+        {/* *@todo this hsoujld be a hash.... connections i snot used/ */}
+        <ConnectNodes key={hash('connectNodes'+props.boxes)} boxes={props.boxes}/>
 
       </svg>
         {/*<line x1={connections[0].x1} y1={connections[0].y1} x2={connections[0].x2} y2={connections[0].y2} stroke="blue" strokeWidth="20" />*/}
