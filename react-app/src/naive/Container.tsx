@@ -6,6 +6,10 @@ import update from 'immutability-helper'
 import { DragItem } from './interfaces'
 import background from '../img/dartboardExample.png'
 import SCIMDartboard from "../scim-dartboard"
+import CaptureImage from "../CaptureImage"
+
+
+
 import ConnectNodes from "./ConnectNodes";
 import { CoordBox } from '../CoordBox.js'
 import { DrawStuff } from "../DrawStuff";
@@ -13,15 +17,24 @@ import { DrawStuff } from "../DrawStuff";
 // !!!!! @todo export as PNG ...
 // !!!!!! @todo ability to delete box
 // !!!!! @todo remove same node from connecting node in list
+//!!!!!!! fix deletion not working properly
+//!!!!!!@todo also fix lines that connect to something thats disappeared.
+//!!!!!!@todo move stuff in to components
+
 const styles: React.CSSProperties = {
 	width: 1024,
 	height: 1024,
 	border: '1px solid black',
 	position: 'relative',
 	backgroundImage: background,
-	whiteSpace: 'break-spaces'
+	whiteSpace: 'break-spaces',
 	//backgroundColor: 'blue'
 }
+
+const formStyle: React.CSSProperties = {
+	//float: 'left',
+	// paddingLeft: '20px'
+} as React.CSSProperties
 
 export interface ContainerProps {
 	hideSourceOnDrag: boolean
@@ -152,13 +165,12 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		const allBoxes = boxes
 		delete allBoxes[itemToRemove]
 		setBoxes({...allBoxes})
-		console.log('AB', allBoxes)
+		//console.log('AB', allBoxes)
 	}
 
 
+	//!!!!!! @todo fix this --- was a demo bit at one point but doesnt work when removing
 
-	// get coords of powwer station and then get coords of cooking
-	// this should actually translate to x1,y1,x2,y2
 	let connection = [{x1: boxes.powerStation.top, y1: boxes.powerStation.left,  x2: boxes.cooking.top, y2: boxes.cooking.left}]
 	// do something that gives connections but here... hard code them
 	// so.... we can access state and pass that down to the thing to draw graphics...
@@ -168,14 +180,14 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 
 	return (
 		<div>
-			<form id="addAnother" onSubmit={addAnother}>
+			<form id="addAnother" onSubmit={addAnother} style={formStyle}>
 				<label>
 					Add Item
 					<input type="text" value={textBox} placeholder="title" onChange={updateText} />
 				</label>
 				<input type="submit" value="Create" />
 			</form>
-			<form>
+			<form style={formStyle}>
 				<label htmlFor="connectFrom">Connect</label>
 
 				<select name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
@@ -191,7 +203,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 
 				<button type="submit" value="submit" onClick={connectLines}>Connect</button>
 			</form>
-			<form>
+			<form style={formStyle}>
 				<label htmlFor={'removeBox'}>Remove Item</label>
 
 				<select name={'removeBox'} onChange={updateSelectRemove}>
@@ -200,8 +212,10 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				</select>
 				<button type={"submit"} value={"submit"} onClick={removeBox}>Remove</button>
 			</form>
+			{/*<form></form>*/}
+			<CaptureImage/>
 
-		<div ref={drop} style={styles}>
+		<div ref={drop} style={styles} id={'scimContainer'}>
 			{/*<form onSubmit={addAnother}>*/}
 			{/*	<label>*/}
 			{/*		Title:*/}

@@ -1,5 +1,3 @@
-// wtf, things seem ok.. value all seem to be correct but nothing is being returned...
-
 import React from 'react';
 import {Box} from "./Box";
 import  hash from 'object-hash';
@@ -12,16 +10,16 @@ export default function ConnectNodes(props) {
   console.log('wtf', props)
 
   // just derive this from the box and then it should move around even if it doesnt get data on first run...
-  const connection = [{
-    x1: props.boxes.powerStation.left,
-    y1: props.boxes.powerStation.top,
-    x2: props.boxes.police.left,
-    y2: props.boxes.police.top
-  }]
-
-
-
-  console.log('grrrrr', connection[0].y2)
+  // const connection = [{
+  //   x1: props.boxes.powerStation.left,
+  //   y1: props.boxes.powerStation.top,
+  //   x2: props.boxes.police.left,
+  //   y2: props.boxes.police.top
+  // }]
+  //
+  //
+  //
+  // console.log('grrrrr', connection[0].y2)
 
 
   // so actually what we want is an array.....

@@ -2,7 +2,7 @@ import React from "react";
 import hash from 'object-hash';
 
 export default function DrawALine(props) {
-  console.log('drawaline', props)
+  // console.log('drawaline', props)
   return (
     // <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000px" height="1000px">
       <line
