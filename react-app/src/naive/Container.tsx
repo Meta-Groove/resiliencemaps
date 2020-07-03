@@ -7,13 +7,14 @@ import { DragItem } from './interfaces'
 import background from '../img/dartboardExample.png'
 import SCIMDartboard from "../scim-dartboard"
 import CaptureImage from "../CaptureImage"
-import {Container as BSContainer, Row, Col, Button } from 'react-bootstrap'
+import {Container as BSContainer, Row, Col, Button, Form  } from 'react-bootstrap'
 import Header from '../Header'
 
 
 import ConnectNodes from "./ConnectNodes";
 import { CoordBox } from '../CoordBox.js'
 import { DrawStuff } from "../DrawStuff";
+import {paddingTop} from "html2canvas/dist/types/css/property-descriptors/padding";
 // import AddBoxes from './AddBoxes'
 // !!!!! @todo export as PNG ...
 // !!!!!! @todo ability to delete box
@@ -34,10 +35,15 @@ const styles: React.CSSProperties = {
 }
 
 const formStyle: React.CSSProperties = {
-	paddingTop: '1em'
+	// paddingTop: '1em'
 	//float: 'left',
 	// paddingLeft: '20px'
-} as React.CSSProperties
+// } as React.CSSPropertie
+}
+
+const breathingSpace: React.CSSProperties = {
+	paddingTop: '5em'
+}
 
 export interface ContainerProps {
 	hideSourceOnDrag: boolean
@@ -222,64 +228,98 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*	<p>The Dartboard of Death is a planning tool designed to focus attention on key aspects of disaster mitigation and resilience. The <a href={'http://resiliencemaps.org/'}>original diagram</a> was created by <a href={'https://twitter.com/leashless'}>Vinay Gupta</a></p>*/}
 			{/*	<p>The diagram illustrates the 6 ways to die with critical infrastructure plotted geographically from local to global.</p>*/}
 			{/*</Row>*/}
-			<Row style={{paddingTop:'4em'}}>
+			{/*<Row style={{paddingTop:'4em'}}>*/}
+			{/*@todo add ids to formcontrol*/}
+			<div style={breathingSpace}></div>
+			<Form id="addAnother" onSubmit={addAnother} style={formStyle}>
+			<Form.Row>
+				{/*<Form.Label>Add Item</Form.Label>*/}
+				<Form.Group as={Col} md={8}>
+					<Form.Control type="text" value={textBox} placeholder="title" onChange={updateText} />
+				</Form.Group>
+				<Form.Group as={Col} md={4}>
+					<Button type="submit" value="Submit">Create</Button>
+				</Form.Group>
+			</Form.Row>
+				</Form>
+			{/*</Row>*/}
 
-			<form id="addAnother" onSubmit={addAnother} style={formStyle}>
-				<label>
-					Add Item
-					<input type="text" value={textBox} placeholder="title" onChange={updateText} />
-				</label>
-				<Button type="submit" value="Submit">Create</Button>
-			</form>
-			</Row>
+				{/*@todo add formgroup*/}
+				{/*//	controlId="exampleForm.SelectCustomSizeSm*/}
 
-				<Row>
-					<form style={formStyle}>
-						<label htmlFor={'removeBox'}>Remove Item</label>
+					<Form style={formStyle}>
+						<Form.Row>
+							{/*<Form.Group>*/}
+							{/*/!*<Form.Label htmlFor={'removeBox'}>Remove Item</Form.Label>*!/*/}
+							{/*</Form.Group>*/}
+							<Form.Group as={Col} md={8}>
 
-						<select name={'removeBox'} onChange={updateSelectRemove}>
-							<option key={'selectRemove'} value={'selectRemove'} >Select</option>
+						<Form.Control as={'select'} name={'removeBox'} onChange={updateSelectRemove}>
+						{/*<select name={'removeBox'} onChange={updateSelectRemove}>*/}
+							<option key={'selectRemove'} value={itemToRemove} >Select</option>
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
-						</select>
+						</Form.Control>
+						</Form.Group>
+							<Form.Group as={Col} md={4}>
+							{/*</select>*/}
 						<Button type={"submit"} value={"submit"} onClick={removeBox}>Remove</Button>
-					</form>
+							</Form.Group>
 
-				</Row>
+						</Form.Row>
+					</Form>
 
-				<Row>
-					<form style={formStyle}>
-						<label htmlFor="connectFrom">Connect</label>
 
-						<select name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
+
+				{/*<Row>*/}
+					<Form style={formStyle}>
+						<Form.Row>
+							{/*<Col.>*/}
+						{/*<Form.Label htmlFor="connectFrom">Connect</Form.Label>*/}
+						{/*<Form.Col>*/}
+						<Form.Group as={Col} md={4}>
+						<Form.Control as={'select'} name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
 							<option key={'selectLineFrom'} value={'selectLineFrom'}>Select</option>
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
-						</select>
+						</Form.Control>
+						</Form.Group>
 
-						<label htmlFor="connectTo">To</label>
-						<select name="connectFrom" id="connectFromSelect" onChange={updateLineTo}>
+						{/*</Form.Col>*/}
+
+						{/*<Form.Label htmlFor="connectTo">To</Form.Label>*/}
+						<Form.Group as={Col} md={4}>
+						<Form.Control as={'select'} name="connectFrom" id="connectFromSelect" onChange={updateLineTo}>
 							<option key={'selectLineTo'} value={'selectLineTo'}>Select</option>
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
-						</select>
-
+						</Form.Control>
+						</Form.Group>
+						{/*</Form.Group>*/}
+						<Form.Group as={Col} md={4}>
 						<Button  type="submit" value="submit" onClick={connectLines}>Connect</Button>
+						</Form.Group>
+						</Form.Row>
+					</Form>
 
-					</form>
-
-				</Row>
+				{/*</Row>*/}
 			{/*<form></form>*/}
 			{/*<Col>*/}
 			{/*	<button onClick={clearAllBoxes}>Clear All</button>*/}
 			{/*</Col>*/}
-			<Row>
+			{/*<Row>*/}
 				{/*<Col>*/}
 				<form style={formStyle}>
+					<Form.Row>
+					<Form.Group as={Col} md={4}>
 					<Button variant={"danger"} onClick={clearAllBoxes}>Clear All</Button>
+					</Form.Group>
 				{/*</Col>*/}
 				{/*<Col>*/}
+					<Form.Group as={Col} md={8}>
 					<CaptureImage/>
+					</Form.Group>
+					</Form.Row>
 				</form>
 					{/*</Col>*/}
-			</Row>
+			{/*</Row>*/}
 				</Col>
 
 			{/*</div>*/}
