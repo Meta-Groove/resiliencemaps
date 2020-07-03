@@ -79,7 +79,7 @@ const SCIMDartboard = (props) => {
       {/* @todo swap out properties as objects so can define wih sliders and such -- can use react hooks for those */}
       {/* */}
 
-      <svg height={1000} width={1000}>
+      <svg height={1000} width={1000} border={'none'}>
         <defs>
           <radialGradient id="dartboardGradient">
 

@@ -25,14 +25,16 @@ import { DrawStuff } from "../DrawStuff";
 const styles: React.CSSProperties = {
 	width: 1024,
 	height: 1024,
-	border: '1px solid black',
+	// border: '1px solid black',
 	position: 'relative',
 	backgroundImage: background,
 	whiteSpace: 'break-spaces',
+
 	//backgroundColor: 'blue'
 }
 
 const formStyle: React.CSSProperties = {
+	paddingTop: '1em'
 	//float: 'left',
 	// paddingLeft: '20px'
 } as React.CSSProperties
@@ -208,9 +210,14 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			</Row>
 			<Row>
 				<Col md="auto">
-
 			{/*<div className={'formWrapper'} style={{float:'left'}}>*/}
-			<Row>
+
+			{/*<Row>*/}
+			{/*	<p>The Dartboard of Death is a planning tool designed to focus attention on key aspects of disaster mitigation and resilience. The <a href={'http://resiliencemaps.org/'}>original diagram</a> was created by <a href={'https://twitter.com/leashless'}>Vinay Gupta</a></p>*/}
+			{/*	<p>The diagram illustrates the 6 ways to die with critical infrastructure plotted geographically from local to global.</p>*/}
+			{/*</Row>*/}
+			<Row style={{paddingTop:'4em'}}>
+
 			<form id="addAnother" onSubmit={addAnother} style={formStyle}>
 				<label>
 					Add Item
@@ -259,11 +266,13 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*</Col>*/}
 			<Row>
 				{/*<Col>*/}
+				<form style={formStyle}>
 					<Button variant={"danger"} onClick={clearAllBoxes}>Clear All</Button>
 				{/*</Col>*/}
 				{/*<Col>*/}
 					<CaptureImage/>
-				{/*</Col>*/}
+				</form>
+					{/*</Col>*/}
 			</Row>
 				</Col>
 
