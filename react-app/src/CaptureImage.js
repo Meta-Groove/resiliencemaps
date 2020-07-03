@@ -1,5 +1,6 @@
 import React from "react"
 import html2canvas from "html2canvas"
+import { Button } from "react-bootstrap"
 
 export default function CaptureImage() {
 
@@ -28,5 +29,5 @@ export default function CaptureImage() {
     });
   }
 
-  return (<button onClick={capture}>Save as PNG</button>)
+  return (<Button variant="success" onClick={capture}>Download as PNG</Button>)
 }

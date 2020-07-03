@@ -7,8 +7,8 @@ import { DragItem } from './interfaces'
 import background from '../img/dartboardExample.png'
 import SCIMDartboard from "../scim-dartboard"
 import CaptureImage from "../CaptureImage"
-import {Container as BSContainer, Row, Col } from 'react-bootstrap'
-
+import {Container as BSContainer, Row, Col, Button } from 'react-bootstrap'
+import Header from '../Header'
 
 
 import ConnectNodes from "./ConnectNodes";
@@ -201,9 +201,13 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 	console.log(boxes)
 	return (
 
-		<BSContainer>
+
+		<BSContainer fluid>
 			<Row>
-				<Col>
+				<Header/>
+			</Row>
+			<Row>
+				<Col md="auto">
 
 			{/*<div className={'formWrapper'} style={{float:'left'}}>*/}
 			<Row>
@@ -212,7 +216,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 					Add Item
 					<input type="text" value={textBox} placeholder="title" onChange={updateText} />
 				</label>
-				<input type="submit" value="Create" />
+				<Button type="submit" value="Submit">Create</Button>
 			</form>
 			</Row>
 
@@ -224,7 +228,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 							<option key={'selectRemove'} value={'selectRemove'} >Select</option>
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
 						</select>
-						<button type={"submit"} value={"submit"} onClick={removeBox}>Remove</button>
+						<Button type={"submit"} value={"submit"} onClick={removeBox}>Remove</Button>
 					</form>
 
 				</Row>
@@ -244,7 +248,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
 						</select>
 
-						<button type="submit" value="submit" onClick={connectLines}>Connect</button>
+						<Button  type="submit" value="submit" onClick={connectLines}>Connect</Button>
 
 					</form>
 
@@ -254,12 +258,12 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*	<button onClick={clearAllBoxes}>Clear All</button>*/}
 			{/*</Col>*/}
 			<Row>
-				<Col>
-					<button onClick={clearAllBoxes}>Clear All</button>
-				</Col>
-				<Col>
+				{/*<Col>*/}
+					<Button variant={"danger"} onClick={clearAllBoxes}>Clear All</Button>
+				{/*</Col>*/}
+				{/*<Col>*/}
 					<CaptureImage/>
-				</Col>
+				{/*</Col>*/}
 			</Row>
 				</Col>
 
