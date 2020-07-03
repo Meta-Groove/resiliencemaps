@@ -10,7 +10,7 @@ import CaptureImage from "../CaptureImage"
 import {Container as BSContainer, Row, Col, Button, Form  } from 'react-bootstrap'
 import Header from '../Header'
 
-
+// why is form syntax highlighting different from others
 import ConnectNodes from "./ConnectNodes";
 import { CoordBox } from '../CoordBox.js'
 import { DrawStuff } from "../DrawStuff";
@@ -306,15 +306,19 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*</Col>*/}
 			{/*<Row>*/}
 				{/*<Col>*/}
+				<br/>
 				<form style={formStyle}>
 					<Form.Row>
-					<Form.Group as={Col} md={4}>
-					<Button variant={"danger"} onClick={clearAllBoxes}>Clear All</Button>
+					<Form.Group as={Col} md={2}>
+					<Button variant={"danger"} onClick={clearAllBoxes}>Clear</Button>
 					</Form.Group>
 				{/*</Col>*/}
 				{/*<Col>*/}
-					<Form.Group as={Col} md={8}>
+					<Form.Group as={Col} md={6}>
 					<CaptureImage/>
+					</Form.Group>
+					<Form.Group as={Col} md={4}>
+						<Button onClick={undefined}>Save</Button>
 					</Form.Group>
 					</Form.Row>
 				</form>

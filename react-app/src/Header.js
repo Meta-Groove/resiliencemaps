@@ -9,5 +9,4 @@ export default function Header() {
       <p>It illustrates 6 ways to die with critical infrastructure plotted geographically from local to global.</p>
     </div>
   )
-
 }

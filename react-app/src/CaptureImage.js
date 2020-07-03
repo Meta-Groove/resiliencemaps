@@ -10,7 +10,7 @@ export default function CaptureImage() {
         //CanvasToImage.saveAsImage(canvas, 1, 1, 'PNG',);
         const base64URL = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
         saveScreenshot(canvas)
-
+        // should this be a png????
         //document.location.href = base64URL;
         //  console.log(base64URL)
         //canvas.toDataURL('image/jpeg')
@@ -20,7 +20,7 @@ export default function CaptureImage() {
   const saveScreenshot = (canvas) => {
     let fileName = "scim"
     const link = document.createElement('a');
-    link.download = fileName + '.png';
+    link.download = fileName + '.jpg';
     console.log(canvas)
     canvas.toBlob(function (blob) {
       console.log(blob)
@@ -29,5 +29,5 @@ export default function CaptureImage() {
     });
   }
 
-  return (<Button variant="success" onClick={capture}>Download as PNG</Button>)
+  return (<Button variant="success" onClick={capture}>Download image</Button>)
 }
