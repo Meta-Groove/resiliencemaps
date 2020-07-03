@@ -7,6 +7,7 @@ import { DragItem } from './interfaces'
 import background from '../img/dartboardExample.png'
 import SCIMDartboard from "../scim-dartboard"
 import CaptureImage from "../CaptureImage"
+import {Container as BSContainer, Row, Col } from 'react-bootstrap'
 
 
 
@@ -195,8 +196,10 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 	//!!!! actually this should be in state!!!!!
 	console.log(boxes)
 	return (
-		<div>
+		<BSContainer>
+			<Row>
 			{/*<div className={'formWrapper'} style={{float:'left'}}>*/}
+			<Col>
 			<form id="addAnother" onSubmit={addAnother} style={formStyle}>
 				<label>
 					Add Item
@@ -204,33 +207,47 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				</label>
 				<input type="submit" value="Create" />
 			</form>
-			<form style={formStyle}>
-				<label htmlFor="connectFrom">Connect</label>
+			</Col>
+				<Col>
+					<form style={formStyle}>
+						<label htmlFor={'removeBox'}>Remove Item</label>
 
-				<select name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
-					<option key={'selectLineFrom'} value={'selectLineFrom'}>Select</option>
-					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
-				</select>
+						<select name={'removeBox'} onChange={updateSelectRemove}>
+							<option key={'selectRemove'} value={'selectRemove'} >Select</option>
+							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
+						</select>
+						<button type={"submit"} value={"submit"} onClick={removeBox}>Remove</button>
+					</form>
 
-				<label htmlFor="connectTo">To</label>
-				<select name="connectFrom" id="connectFromSelect" onChange={updateLineTo}>
-					<option key={'selectLineTo'} value={'selectLineTo'}>Select</option>
-					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
-				</select>
+				</Col>
+				</Row>
+			<Row>
+				<Col>
+					<form style={formStyle}>
+						<label htmlFor="connectFrom">Connect</label>
 
-				<button type="submit" value="submit" onClick={connectLines}>Connect</button>
-			</form>
-			<form style={formStyle}>
-				<label htmlFor={'removeBox'}>Remove Item</label>
+						<select name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
+							<option key={'selectLineFrom'} value={'selectLineFrom'}>Select</option>
+							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
+						</select>
 
-				<select name={'removeBox'} onChange={updateSelectRemove}>
-					<option key={'selectRemove'} value={'selectRemove'} >Select</option>
-					{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
-				</select>
-				<button type={"submit"} value={"submit"} onClick={removeBox}>Remove</button>
-			</form>
+						<label htmlFor="connectTo">To</label>
+						<select name="connectFrom" id="connectFromSelect" onChange={updateLineTo}>
+							<option key={'selectLineTo'} value={'selectLineTo'}>Select</option>
+							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
+						</select>
+
+						<button type="submit" value="submit" onClick={connectLines}>Connect</button>
+
+					</form>
+
+				</Col>
 			{/*<form></form>*/}
+			<Col>
 			<CaptureImage/>
+			</Col>
+			</Row>
+
 			{/*</div>*/}
 
 		<div ref={drop} style={styles} id={'scimContainer'}>
@@ -289,6 +306,6 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				)
 			})}
 		</div>
-		</div>
+		</BSContainer>
 	)
 }
