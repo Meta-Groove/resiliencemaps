@@ -113,9 +113,15 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 
 	const addAnother = (e: any) => {
 		e.preventDefault();
+
 		const cleaned = cleanText(textBox);
-		const allBoxes =
-		setBoxes({...boxes, [cleaned]: {top: 50, left: 450, title: textBox, connectedTo: []}})
+
+		if (cleaned != '') {
+			setBoxes({...boxes, [cleaned]: {top: 50, left: 450, title: textBox, connectedTo: []}})
+		} else {
+			return null
+		}		// const allBoxes =
+
 		
 		// add to obj and then sort
 
