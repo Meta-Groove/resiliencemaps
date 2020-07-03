@@ -55,23 +55,23 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		//	need to calculate center
 		}
 	}>({
-		hospital: { top: 364, left: 315, title: 'Hospital', connectedTo: []},
-		cooking: { top: 645, left: 540, title: 'Cooking', connectedTo: ['tapWater', 'kitchenStores'] },
-		police: { top: 315, left: 580, title: 'Police', connectedTo: [] },
-		military: { top: 250, left: 610, title: 'Military', connectedTo: [] },
-		cooling: { top: 475, left: 610, title: 'Cooling', connectedTo: [] },
-		home: { top: 520, left: 610, title: 'Home', connectedTo: [] },
-		heating: { top: 565, left: 610, title: 'Heating', connectedTo: [] },
-		powerStation: { top: 625, left: 715, title: "Power \nStations", connectedTo: ['cooking', 'heating', 'cooling'] },
-		sewagePlant: { top: 500, left: 270, title: 'Sewage \nPlant', connectedTo: ['toilet'] },
-		waterPlant: { top: 540, left: 270, title: 'Water \nPlant', connectedTo: ['toilet', 'tapWater'] },
-		toilet: { top: 500, left: 345, title: 'Toilet', connectedTo: [] },
-		tapWater: { top: 540, left: 345, title: 'Tap \nWater', connectedTo: [] },
-		kitchenStores: { top: 645, left: 415, title: 'Kitchen \nStores' , connectedTo: []},
+		cooling: { top: 432, left: 612, title: 'Cooling', connectedTo: [] },
+		cooking: { top: 616, left: 535, title: 'Cooking', connectedTo: ['tapWater', 'kitchenStores'] },
+		energyMarkets: { top: 644, left: 760, title: 'Energy \nMarkets', connectedTo: ['powerStation'] },
 		foodShops: { top: 735, left: 445, title: 'Food \nShops', connectedTo: []},
-		foodMarkets: { top: 840, left: 415, title: 'Food \nMarkets', connectedTo: [] },
-		fuelMarkets: { top: 815, left: 590, title: 'Fuel \nMarkets', connectedTo: [] },
-		energyMarkets: { top: 700, left: 725, title: 'Food \nMarkets', connectedTo: [] },
+		foodMarkets: { top: 798, left: 440, title: 'Food \nMarkets', connectedTo: [] },
+		fuelMarkets: { top: 784, left: 597, title: 'Fuel \nMarkets', connectedTo: [] },
+		heating: { top: 548, left: 613, title: 'Heating', connectedTo: [] },
+		home: { top: 487, left: 628, title: 'Home', connectedTo: [] },
+		hospital: { top: 328, left: 328, title: 'Hospital', connectedTo: []},
+		kitchenStores: { top: 616, left: 440, title: 'Kitchen \nStores' , connectedTo: []},
+		military: { top: 216, left: 630, title: 'Military', connectedTo: [] },
+		police: { top: 300, left: 619, title: 'Police', connectedTo: [] },
+		powerStation: { top: 538, left: 761, title: "Power \nStation", connectedTo: ['cooking', 'heating', 'cooling', 'home'] },
+		sewagePlant: { top:435, left: 264, title: 'Sewage \nPlant', connectedTo: ['toilet'] },
+		tapWater: { top: 540, left: 365, title: 'Tap \nWater', connectedTo: [] },
+		toilet: { top: 454, left: 356, title: 'Toilet', connectedTo: [] },
+		waterPlant: { top: 540, left: 270, title: 'Water \nPlant', connectedTo: ['toilet', 'tapWater'] },
 	})
 
 	const [textBox, setTextBox] = useState('')
@@ -111,7 +111,11 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 	const addAnother = (e: any) => {
 		e.preventDefault();
 		const cleaned = cleanText(textBox);
+		const allBoxes =
 		setBoxes({...boxes, [cleaned]: {top: 50, left: 450, title: textBox, connectedTo: []}})
+		
+		// add to obj and then sort
+
 	}
 
 	const updateText = (e: any) => {
@@ -149,10 +153,10 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		// 	}),
 	//	)
 
-		console.log(e)
-		console.log(lineFrom)
-		console.log(lineTo)
-		console.log(boxes)
+		// console.log(e)
+		// console.log(lineFrom)
+		// console.log(lineTo)
+		// console.log(boxes)
 	}
 
 	const updateSelectRemove = (e: any) => {
@@ -172,6 +176,14 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 		setBoxes({...allBoxes})
 	}
 
+	const sortByAlphabet = (boxObj:any) => {
+		return Object.keys(boxObj)
+			.sort()
+			.reduce((acc, key) => ({
+				...acc, [key]:boxObj[key]
+			}), {})
+	}
+
 
 	//!!!!!! @todo fix this --- was a demo bit at one point but doesnt work when removing
 
@@ -181,9 +193,10 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 	// give them all a div tag so can removed when is about to update
 	//const nodeConnections:Array<any> = connection//[{x1:0, y1: 0, x2: 100, y2:100 }]
 	//!!!! actually this should be in state!!!!!
-
+	console.log(boxes)
 	return (
 		<div>
+			{/*<div className={'formWrapper'} style={{float:'left'}}>*/}
 			<form id="addAnother" onSubmit={addAnother} style={formStyle}>
 				<label>
 					Add Item
@@ -218,6 +231,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			</form>
 			{/*<form></form>*/}
 			<CaptureImage/>
+			{/*</div>*/}
 
 		<div ref={drop} style={styles} id={'scimContainer'}>
 			{/*<form onSubmit={addAnother}>*/}
