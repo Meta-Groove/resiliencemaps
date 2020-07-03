@@ -185,6 +185,10 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			}), {})
 	}
 
+	const clearAllBoxes = () => {
+		setBoxes({})
+	}
+
 
 	//!!!!!! @todo fix this --- was a demo bit at one point but doesnt work when removing
 
@@ -196,10 +200,13 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 	//!!!! actually this should be in state!!!!!
 	console.log(boxes)
 	return (
+
 		<BSContainer>
 			<Row>
+				<Col>
+
 			{/*<div className={'formWrapper'} style={{float:'left'}}>*/}
-			<Col>
+			<Row>
 			<form id="addAnother" onSubmit={addAnother} style={formStyle}>
 				<label>
 					Add Item
@@ -207,8 +214,9 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				</label>
 				<input type="submit" value="Create" />
 			</form>
-			</Col>
-				<Col>
+			</Row>
+
+				<Row>
 					<form style={formStyle}>
 						<label htmlFor={'removeBox'}>Remove Item</label>
 
@@ -219,10 +227,9 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 						<button type={"submit"} value={"submit"} onClick={removeBox}>Remove</button>
 					</form>
 
-				</Col>
 				</Row>
-			<Row>
-				<Col>
+
+				<Row>
 					<form style={formStyle}>
 						<label htmlFor="connectFrom">Connect</label>
 
@@ -241,14 +248,23 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 
 					</form>
 
-				</Col>
+				</Row>
 			{/*<form></form>*/}
-			<Col>
-			<CaptureImage/>
-			</Col>
+			{/*<Col>*/}
+			{/*	<button onClick={clearAllBoxes}>Clear All</button>*/}
+			{/*</Col>*/}
+			<Row>
+				<Col>
+					<button onClick={clearAllBoxes}>Clear All</button>
+				</Col>
+				<Col>
+					<CaptureImage/>
+				</Col>
 			</Row>
+				</Col>
 
 			{/*</div>*/}
+			<Col>
 
 		<div ref={drop} style={styles} id={'scimContainer'}>
 			{/*<form onSubmit={addAnother}>*/}
@@ -306,6 +322,8 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				)
 			})}
 		</div>
+			</Col>
+			</Row>
 		</BSContainer>
 	)
 }
