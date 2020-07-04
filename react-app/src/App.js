@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import SCIMDartboard from './scim-dartboard';
+import SCIMDartboard from './ScimDartboard';
 // maybe actually we dont even need d3....
 
 

@@ -5,11 +5,13 @@ import { Box } from './Box'
 import update from 'immutability-helper'
 import { DragItem } from './interfaces'
 import background from '../img/dartboardExample.png'
-import SCIMDartboard from "../scim-dartboard"
+import ScimSmartboard from "../ScimDartboard" // <-- rename this to upper camel case
 import CaptureImage from "../CaptureImage"
 import {Container as BSContainer, Row, Col, Button, Form  } from 'react-bootstrap'
 import Header from '../Header'
 
+
+// could use local or external mongo, or local mysql since its already nstalled (2**63)
 // why is form syntax highlighting different from others
 import ConnectNodes from "./ConnectNodes";
 import { CoordBox } from '../CoordBox.js'
@@ -221,7 +223,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				<Header/>
 			</Row>
 			<Row>
-				<Col md="auto">
+				<Col sm="auto">
 			{/*<div className={'formWrapper'} style={{float:'left'}}>*/}
 
 			{/*<Row>*/}
@@ -234,11 +236,11 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			<Form id="addAnother" onSubmit={addAnother} style={formStyle}>
 			<Form.Row>
 				{/*<Form.Label>Add Item</Form.Label>*/}
-				<Form.Group as={Col} md={8}>
-					<Form.Control type="text" value={textBox} placeholder="title" onChange={updateText} />
+				<Form.Group as={Col} sm={8}>
+					<Form.Control type="text" value={textBox} placeholder="Title" onChange={updateText} />
 				</Form.Group>
-				<Form.Group as={Col} md={4}>
-					<Button type="submit" value="Submit">Create</Button>
+				<Form.Group as={Col} sm={4}>
+					<Button type="submit" value="Submit">Add Box</Button>
 				</Form.Group>
 			</Form.Row>
 				</Form>
@@ -252,7 +254,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 							{/*<Form.Group>*/}
 							{/*/!*<Form.Label htmlFor={'removeBox'}>Remove Item</Form.Label>*!/*/}
 							{/*</Form.Group>*/}
-							<Form.Group as={Col} md={8}>
+							<Form.Group as={Col} sm={8}>
 
 						<Form.Control as={'select'} name={'removeBox'} onChange={updateSelectRemove}>
 						{/*<select name={'removeBox'} onChange={updateSelectRemove}>*/}
@@ -260,7 +262,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
 						</Form.Control>
 						</Form.Group>
-							<Form.Group as={Col} md={4}>
+							<Form.Group as={Col} sm={4}>
 							{/*</select>*/}
 						<Button type={"submit"} value={"submit"} onClick={removeBox}>Remove</Button>
 							</Form.Group>
@@ -276,7 +278,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 							{/*<Col.>*/}
 						{/*<Form.Label htmlFor="connectFrom">Connect</Form.Label>*/}
 						{/*<Form.Col>*/}
-						<Form.Group as={Col} md={4}>
+						<Form.Group as={Col} sm={4}>
 						<Form.Control as={'select'} name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
 							<option key={'selectLineFrom'} value={'selectLineFrom'}>Select</option>
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
@@ -286,14 +288,14 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 						{/*</Form.Col>*/}
 
 						{/*<Form.Label htmlFor="connectTo">To</Form.Label>*/}
-						<Form.Group as={Col} md={4}>
+						<Form.Group as={Col} sm={4}>
 						<Form.Control as={'select'} name="connectFrom" id="connectFromSelect" onChange={updateLineTo}>
 							<option key={'selectLineTo'} value={'selectLineTo'}>Select</option>
 							{Object.keys(boxes).map(key => <option key={key} value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>)}
 						</Form.Control>
 						</Form.Group>
 						{/*</Form.Group>*/}
-						<Form.Group as={Col} md={4}>
+						<Form.Group as={Col} sm={4}>
 						<Button  type="submit" value="submit" onClick={connectLines}>Connect</Button>
 						</Form.Group>
 						</Form.Row>
@@ -309,15 +311,15 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 				<br/>
 				<form style={formStyle}>
 					<Form.Row>
-					<Form.Group as={Col} md={2}>
+					<Form.Group as={Col} sm={2}>
 					<Button variant={"danger"} onClick={clearAllBoxes}>Clear</Button>
 					</Form.Group>
 				{/*</Col>*/}
 				{/*<Col>*/}
-					<Form.Group as={Col} md={6}>
+					<Form.Group as={Col} sm={6}>
 					<CaptureImage/>
 					</Form.Group>
-					<Form.Group as={Col} md={4}>
+					<Form.Group as={Col} sm={4}>
 						<Button onClick={undefined}>Save</Button>
 					</Form.Group>
 					</Form.Row>
@@ -348,8 +350,8 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*</Box>*/}
 			{/*<AddBoxes/>*/}
 
-			{/*<SCIMDartboard connections={nodeConnections}/>*/}
-			<SCIMDartboard boxes={boxes}/>
+			{/*<SCIsmartboard connections={nodeConnections}/>*/}
+			<ScimSmartboard boxes={boxes}/>
 			{/*uhm.... why????*/}
 
 			{/*return {Object.keys(boxes).map((key) => {}*/}
