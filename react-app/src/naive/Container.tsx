@@ -233,6 +233,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 			{/*<Row style={{paddingTop:'4em'}}>*/}
 			{/*@todo add ids to formcontrol*/}
 			<div style={breathingSpace}></div>
+					<h2>Edit Content</h2>
 			<Form id="addAnother" onSubmit={addAnother} style={formStyle}>
 			<Form.Row>
 				{/*<Form.Label>Add Item</Form.Label>*/}
@@ -319,11 +320,21 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 					<Form.Group as={Col} sm={6}>
 					<CaptureImage/>
 					</Form.Group>
+					{/*	grey out and disable --- add hovers.... */}
 					<Form.Group as={Col} sm={4}>
 						<Button onClick={undefined}>Save</Button>
 					</Form.Group>
 					</Form.Row>
 				</form>
+					<h2>Image</h2>
+					<ul>
+						<li>
+							Background / gradient on / off
+						</li>
+						<li>
+							Save to disk
+						</li>
+					</ul>
 					{/*</Col>*/}
 			{/*</Row>*/}
 				</Col>

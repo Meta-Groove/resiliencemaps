@@ -8,11 +8,6 @@ const map =  {
   someThing: 'someValue'
 }
 
-
-
-
-
-
 const body = {
   message: 'Pinatas are awesome'
 };
