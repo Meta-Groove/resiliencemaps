@@ -13,7 +13,8 @@ it('Should post a new object', (done) => {
       "content-type" : "application/json",
     },
     body: {
-      someThing: 'someValue'
+      someThing: 'someValue',
+      someOtherThing: 'someOtherValue'
     }
   };
 
@@ -31,6 +32,9 @@ it('Should get an object', (done) => {
   const req = {
     url: httpMode + "://" + urlBase + "/key/foo",
   };
+
+  // generate an object on the fly...
+  // tag it as test content so can scrub later
 
   return frisby
     .get(req.url)
