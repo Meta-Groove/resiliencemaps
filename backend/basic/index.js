@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bp = require('body-parser');
+const bpj = require('body-parser').json();
 const  mysql = require('mysql');
 
 const con = mysql.createConnection({
@@ -12,28 +13,26 @@ const con = mysql.createConnection({
 
 app.use(bp.json({ type: 'application/*+json' }))
 
-app.use('/key/:id', function (req, res, next) {
-  //check formation of object
-  //res.send('ahoy+'+ req.params.id)
-  // write to db
-  console.log(req.body)
 
-  // check integrity of data against key
-  // chuck it in the db as text
-  next();
+app.post('/create', bpj, (req, res) => {
+  res.status(201)
+  //res.body(req.body)
+  res.set('content-type', 'application/json')
+  res.send(req.body)
+  res.end(JSON.stringify(req.body, null, 2))
 });
 
-app.get('/', function (req, res) {
+app.get('/key/:id', function (req, res) {
   // grab the first element...
   //  only accept from single ip or somehting like thiat
-  res.send('Hello World. You are probable here because a URL broken. Try visiting...@tdoo');
+  res.json({something: 'someValue'});
 })
 
 const server = app.listen(8081, function () {
   const host = server.address().address
   const port = server.address().port
 
- console.log("Example app listening at http://%s:%s", 'localhost', port)
+ console.log("Example app listening at http://%s:%s/key/foo", 'localhost', port)
 })
 
 //
