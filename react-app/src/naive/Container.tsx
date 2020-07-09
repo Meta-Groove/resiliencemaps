@@ -9,6 +9,10 @@ import ScimSmartboard from "../ScimDartboard" // <-- rename this to upper camel 
 import CaptureImage from "../CaptureImage"
 import {Container as BSContainer, Row, Col, Button, Form  } from 'react-bootstrap'
 import Header from '../Header'
+// import { Router } from 'react-router-dom'
+// const { id } = useParams();
+
+import PostToIPFS from '../postToIPFS'
 
 
 // could use local or external mongo, or local mysql since its already nstalled (2**63)
@@ -49,13 +53,14 @@ const breathingSpace: React.CSSProperties = {
 
 export interface ContainerProps {
 	hideSourceOnDrag: boolean
+	ipfsId: string
 }
 
 export interface ContainerState {
 	boxes: { [key: string]: { top: number; left: number; title: string, connectedTo?: Array<any> } }
 }
 
-export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
+export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} ) => {
 	const [boxes, setBoxes] = useState<{
 		[key: string]: {
 			top: number
@@ -90,6 +95,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 	const [lineTo, setLineTo] = useState('')
 	const [itemToRemove, setItemToRemove] = useState('')
 
+	console.log('propswtfaaarggg', ipfsId)
 	// hmmmmm, dont seem to be able to get the text to split over lines when rendered
 	// maybe should just manually draw on all the other stuff...!?
 
@@ -322,7 +328,8 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 					</Form.Group>
 					{/*	grey out and disable --- add hovers.... */}
 					<Form.Group as={Col} sm={4}>
-						<Button onClick={undefined}>Save</Button>
+						<PostToIPFS boxes={boxes}/>
+						{/*<Button onClick={undefined}>Save</Button>*/}
 					</Form.Group>
 					</Form.Row>
 				</form>
@@ -341,7 +348,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag }) => {
 
 			{/*</div>*/}
 			<Col>
-
+				{/*<PostToIPFS boxes={boxes}/>*/}
 		<div ref={drop} style={styles} id={'scimContainer'}>
 			{/*<form onSubmit={addAnother}>*/}
 			{/*	<label>*/}

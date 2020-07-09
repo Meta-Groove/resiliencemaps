@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import {useRoutes} from 'hookrouter';
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
+// import { useParams} from "react-router";
 import SCIMDartboard from './ScimDartboard';
 // maybe actually we dont even need d3....
 
@@ -62,26 +65,36 @@ import {Example} from './naive/Example';
 
 import { useDrag } from 'react-dnd'
 
-// add draggables
-// add default data
-// add ability to create new draggable elements
-// add local storage to remember
-// switch out graphic for d3
-// hook up draggables to d3
-// get some feedback
 // consider ux and icons
 // interesting to see how we could shuffle these elements around?
 
 // so we need to wrap this around...
+const routes = {
+  '/': () => <Example />,
+  '/:id': ({id}) => <Example id={id} />,
+  '/view/:id': ({id}) => <Example id={id} />,
+  '/edit/:id': ({id}) => <Example id={id} />,
+};
 
 
 function App() {
+
+  const routeResult = useRoutes(routes).props.id;
+  console.log('routeResult', routeResult)
+
+
   return (
       <DndProvider backend={HTML5Backend}>
-    <div>
+
+    {/*<div>*/}
     {/*<div className="App" style={{backgroundImage: 'url("../img/dartboardExample")'}}>*/}
-      <div className="App" style={{backgroundImage: 'url("../img/dartboardExample")'}}>
-      <Example />
+    {/*  <div className="App" style={{backgroundImage: 'url("../img/dartboardExample")'}}>*/}
+    {/*  <Router>*/}
+    {/*    <Route path={'/'} component={Container} />*/}
+    {/*    <Route path={'/:ipfsHash'} component={Container} />*/}
+
+
+      <Example ipfsId={routeResult} />
       {/*<SCIMDartboard />*/}
       {/*<header className="App-header">*/}
       {/*  <p>*/}
@@ -97,8 +110,10 @@ function App() {
       {/*    </Col>*/}
       {/*  </Row>*/}
       {/*</Container>*/}
-    </div>
-    </div>
+    {/*</Router>*/}
+    {/*</div>*/}
+    {/*</div>*/}
+    {/*  </Router>*/}
       </DndProvider>
 
   );

@@ -2,32 +2,28 @@ const express = require('express');
 const app = express();
 const bp = require('body-parser');
 const bpj = require('body-parser').json();
-const  mysql = require('mysql');
+// const  mysql = require('mysql');
+const cors = require('cors')
 require('dotenv').config();
 
 const pinToIPFS  = require('./ipfsStorage')
 
-//@todo update tags to make test content
-// wrap where necessary in trys and such
-
 app.use(bp.json({ type: 'application/*+json' }))
+app.use(cors())
 
-app.post('/create', bpj, (req, res) => {
+app.post('/create', bpj, async (req, res) => {
 
-  //res.body(req.body)
   res.set('content-type', 'application/json')
-
-  req.body.ipfsId = pinToIPFS(req.body)
+  req.body.ipfs = await pinToIPFS(req.body)
   res.status(201)
   //res.end(JSON.stringify(req.body, null, 2)) //!?
   res.send(req.body)
-
-  // generate a hash that can be stored -- can emulate in advance?
 });
 
 app.get('/key/:id', function (req, res) {
-  // grab the first element...
-  //  only accept from single ip or somehting like thiat
+  // fetch the ipfs value if it exists
+  // if it doesn't do nothing
+  // @todo add notes section
   res.json({something: 'someValue'});
 })
 
