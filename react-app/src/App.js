@@ -73,8 +73,8 @@ import { useDrag } from 'react-dnd'
 const routes = {
   '/': () => <Example />,
   '/:id': ({id}) => <Example id={id} />,
-  '/view/:id': ({id}) => <Example id={id} />,
-  '/edit/:id': ({id}) => <Example id={id} />,
+  // '/view/:id': ({id}) => <Example id={id} />,
+  // '/edit/:id': ({id}) => <Example id={id} />,
 };
 
 
