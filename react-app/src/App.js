@@ -4,6 +4,7 @@ import dartboardExample from './img/dartboardExample.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend'
 import { DndProvider } from 'react-dnd';
 import {useRoutes} from 'hookrouter';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -77,6 +78,9 @@ const routes = {
 };
 
 
+// Enable both point and touch
+const backend = (window.matchMedia("(pointer: coarse)").matches) ? TouchBackend : HTML5Backend
+
 function App() {
 
   const routeResult = useRoutes(routes).props.id;
@@ -84,7 +88,7 @@ function App() {
 
 
   return (
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={backend}>
 
     {/*<div>*/}
     {/*<div className="App" style={{backgroundImage: 'url("../img/dartboardExample")'}}>*/}
