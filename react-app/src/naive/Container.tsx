@@ -70,25 +70,48 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 			// boxes?: Object
 		//	need to calculate center
 		}
-	}>({
-		cooling: { top: 432, left: 612, title: 'Cooling', connectedTo: [] },
-		cooking: { top: 616, left: 535, title: 'Cooking', connectedTo: ['tapWater', 'kitchenStores'] },
-		energyMarkets: { top: 644, left: 760, title: 'Energy \nMarkets', connectedTo: ['powerStation'] },
-		foodShops: { top: 735, left: 445, title: 'Food \nShops', connectedTo: []},
-		foodMarkets: { top: 798, left: 440, title: 'Food \nMarkets', connectedTo: [] },
-		fuelMarkets: { top: 784, left: 597, title: 'Fuel \nMarkets', connectedTo: [] },
-		heating: { top: 548, left: 613, title: 'Heating', connectedTo: [] },
-		home: { top: 487, left: 628, title: 'Home', connectedTo: [] },
-		hospital: { top: 328, left: 328, title: 'Hospital', connectedTo: []},
-		kitchenStores: { top: 616, left: 440, title: 'Kitchen \nStores' , connectedTo: []},
-		military: { top: 216, left: 630, title: 'Military', connectedTo: [] },
-		police: { top: 300, left: 619, title: 'Police', connectedTo: [] },
-		powerStation: { top: 538, left: 761, title: "Power \nStation", connectedTo: ['cooking', 'heating', 'cooling', 'home'] },
-		sewagePlant: { top:435, left: 264, title: 'Sewage \nPlant', connectedTo: ['toilet'] },
-		tapWater: { top: 540, left: 365, title: 'Tap \nWater', connectedTo: [] },
-		toilet: { top: 454, left: 356, title: 'Toilet', connectedTo: [] },
-		waterPlant: { top: 540, left: 270, title: 'Water \nPlant', connectedTo: ['toilet', 'tapWater'] },
-	})
+	}>(() => {
+		console.log('try and do something else first', ipfsId)
+
+		// also check length and characters
+		if (ipfsId !== undefined && ipfsId.charAt(0) === 'Q') {
+			console.log('attempting to load', ipfsId)
+			fetch('https://gateway.pinata.cloud/ipfs/' + ipfsId)
+				.then(async (response) => {
+					const someJson = await response.json()
+					console.log(someJson)
+					setBoxes(someJson.boxes)
+				})
+
+			// fix bug so doesn't fall over
+			//return {}
+
+		}
+
+		return {
+		cooling: {top: 432, left: 612, title: 'Cooling', connectedTo: []},
+		cooking: {top: 616, left: 535, title: 'Cooking', connectedTo: ['tapWater', 'kitchenStores']},
+		energyMarkets: {top: 644, left: 760, title: 'Energy \nMarkets', connectedTo: ['powerStation']},
+		foodShops: {top: 735, left: 445, title: 'Food \nShops', connectedTo: []},
+		foodMarkets: {top: 798, left: 440, title: 'Food \nMarkets', connectedTo: []},
+		fuelMarkets: {top: 784, left: 597, title: 'Fuel \nMarkets', connectedTo: []},
+		heating: {top: 548, left: 613, title: 'Heating', connectedTo: []},
+		home: {top: 487, left: 628, title: 'Home', connectedTo: []},
+		hospital: {top: 328, left: 328, title: 'Hospital', connectedTo: []},
+		kitchenStores: {top: 616, left: 440, title: 'Kitchen \nStores', connectedTo: []},
+		military: {top: 216, left: 630, title: 'Military', connectedTo: []},
+		police: {top: 300, left: 619, title: 'Police', connectedTo: []},
+		powerStation: {
+			top: 538,
+			left: 761,
+			title: "Power \nStation",
+			connectedTo: ['cooking', 'heating', 'cooling', 'home']
+		},
+		sewagePlant: {top: 435, left: 264, title: 'Sewage \nPlant', connectedTo: ['toilet']},
+		tapWater: {top: 540, left: 365, title: 'Tap \nWater', connectedTo: []},
+		toilet: {top: 454, left: 356, title: 'Toilet', connectedTo: []},
+		waterPlant: {top: 540, left: 270, title: 'Water \nPlant', connectedTo: ['toilet', 'tapWater']},
+	}})
 
 	const [textBox, setTextBox] = useState('')
 	const [lineFrom, setLineFrom] = useState('')

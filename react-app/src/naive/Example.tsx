@@ -19,7 +19,7 @@ export const Example: React.FC = (props: any) => {
 	return (
 		<div>
 
-			<Container hideSourceOnDrag={hideSourceOnDrag} ipfsId={props.id}/>
+			<Container hideSourceOnDrag={hideSourceOnDrag} ipfsId={props.ipfsId}/>
 		{/*	<p>*/}
 		{/*		<label htmlFor="hideSourceOnDrag">*/}
 		{/*			<input*/}

@@ -23,3 +23,5 @@ module.exports = async function pinToIPFS(content) {
   console.log('moo', moo)
   return moo
 }
+
+

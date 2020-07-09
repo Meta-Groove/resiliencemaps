@@ -4,6 +4,7 @@ const bp = require('body-parser');
 const bpj = require('body-parser').json();
 // const  mysql = require('mysql');
 const cors = require('cors')
+const fetch = require('node-fetch')
 require('dotenv').config();
 
 const pinToIPFS  = require('./ipfsStorage')
@@ -20,11 +21,13 @@ app.post('/create', bpj, async (req, res) => {
   res.send(req.body)
 });
 
-app.get('/key/:id', function (req, res) {
+app.get('/key/:id', async (req, res) => {
+  const hoo = await fetch('https://gateway.pinata.cloud/ipfs/QmPBvPuiyCDW83UYdLdGHSALuhxN7L8yKXkgT4VRB2vcng')
+  res.json(await hoo.json())
   // fetch the ipfs value if it exists
   // if it doesn't do nothing
   // @todo add notes section
-  res.json({something: 'someValue'});
+  // res.json({something: 'someValue'});
 })
 
 const server = app.listen(8081, function () {

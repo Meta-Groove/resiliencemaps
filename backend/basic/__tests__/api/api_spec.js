@@ -25,16 +25,13 @@ it('Should post a new object', (done) => {
       console.log('response: ', res)
     })
     .done(done)
-});
+}, 9999999);
 
 
 it('Should get an object', (done) => {
   const req = {
-    url: httpMode + "://" + urlBase + "/key/foo",
+    url: httpMode + "://" + urlBase + "/key/Qm",
   };
-
-  // generate an object on the fly...
-  // tag it as test content so can scrub later
 
   return frisby
     .get(req.url)
@@ -43,4 +40,4 @@ it('Should get an object', (done) => {
       console.log('get sent res: ', res)
     })
     .done(done)
-});
+}, 99999999);
