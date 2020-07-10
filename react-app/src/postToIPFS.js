@@ -21,7 +21,7 @@ export default function PostToIPFS(props) {
 
   const sendToIPFS = async () => {
     // console.log('some button props: ', props)
-    const response = await fetch('http://localhost:8081/create', {
+    const response = await fetch('http://api.scim.metagroove.io/create', {
       method: 'post',
       headers: {
         'Accept': 'application/json',

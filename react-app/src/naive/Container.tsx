@@ -356,15 +356,15 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 					</Form.Group>
 					</Form.Row>
 				</form>
-					<h2>Image</h2>
-					<ul>
-						<li>
-							Background / gradient on / off
-						</li>
-						<li>
-							Save to disk
-						</li>
-					</ul>
+					{/*<h2>Image</h2>*/}
+					{/*<ul>*/}
+					{/*	<li>*/}
+					{/*		Background / gradient on / off*/}
+					{/*	</li>*/}
+					{/*	<li>*/}
+					{/*		Save to disk*/}
+					{/*	</li>*/}
+					{/*</ul>*/}
 					{/*</Col>*/}
 			{/*</Row>*/}
 				</Col>
