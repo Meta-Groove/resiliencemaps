@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react'
 import { Container } from './Container'
-import dartboardExample from "../img/dartboardExample.png";
-// import { useParams} from "react-router";
 
 export const Example: React.FC = (props: any) => {
 	const [hideSourceOnDrag, setHideSourceOnDrag] = useState(true)
@@ -9,13 +7,6 @@ export const Example: React.FC = (props: any) => {
 		hideSourceOnDrag,
 	])
 
-	// const {id} = props;
-	// console.log('PROPS', props)
-	// 	// console.log('ID', id)
-	// const {ipfsHash} = useParams();
-	// console.log('used params: ', ipfsHash)
-	// @ts-ignore
-	// @ts-ignore
 	return (
 		<div>
 

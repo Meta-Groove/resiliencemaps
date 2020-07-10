@@ -9,7 +9,8 @@ import ScimSmartboard from "../ScimDartboard" // <-- rename this to upper camel 
 import CaptureImage from "../CaptureImage"
 import {Container as BSContainer, Row, Col, Button, Form  } from 'react-bootstrap'
 import Header from '../Header'
-import PostToIPFS from '../postToIPFS'
+// @ts-ignore
+import PostToIPFS from '../PostToIPFS'
 
 const styles: React.CSSProperties = {
 	width: 1024,
@@ -22,12 +23,7 @@ const styles: React.CSSProperties = {
 	//backgroundColor: 'blue'
 }
 
-const formStyle: React.CSSProperties = {
-	// paddingTop: '1em'
-	//float: 'left',
-	// paddingLeft: '20px'
-// } as React.CSSPropertie
-}
+const formStyle: React.CSSProperties = {}
 
 const breathingSpace: React.CSSProperties = {
 	paddingTop: '5em'
