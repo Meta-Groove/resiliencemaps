@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
-import dartboardExample from './img/dartboardExample.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { DndProvider } from 'react-dnd';
@@ -16,8 +14,7 @@ const routes = {
   // '/edit/:id': ({id}) => <Example id={id} />,
 };
 
-
-// Enable both point and touch
+// Enable pointer or touch
 const backend = (window.matchMedia("(pointer: coarse)").matches) ? TouchBackend : HTML5Backend
 
 function App() {

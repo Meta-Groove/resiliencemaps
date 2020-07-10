@@ -7,13 +7,8 @@ export default function CaptureImage() {
   const capture = () => {
     html2canvas(document.querySelector("#scimContainer"))
       .then(function (canvas) {
-        //CanvasToImage.saveAsImage(canvas, 1, 1, 'PNG',);
         const base64URL = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
         saveScreenshot(canvas)
-        // should this be a png????
-        //document.location.href = base64URL;
-        //  console.log(base64URL)
-        //canvas.toDataURL('image/jpeg')
       })
   }
 
