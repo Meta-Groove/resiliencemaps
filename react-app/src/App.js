@@ -86,7 +86,6 @@ function App() {
   const routeResult = useRoutes(routes).props.id;
   console.log('routeResult', routeResult)
 
-
   return (
       <DndProvider backend={backend}>
 

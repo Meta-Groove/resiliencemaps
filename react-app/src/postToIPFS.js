@@ -85,7 +85,7 @@ export default function PostToIPFS(props) {
           </Modal.Header>
 {/*  @todo ipaddress from config on build / local prod  */}
           <Modal.Body>
-            <p>View at: <a href={'http://localhost:3000/'+ipfsHash}>localhost:3000/{ipfsHash}</a></p>
+            <p>View at: <a href={'http://scim.metagtoove.io/'+ipfsHash}>scim.metagroove.io/{ipfsHash}</a></p>
           </Modal.Body>
 
           <Modal.Footer>
