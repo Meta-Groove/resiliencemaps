@@ -27,7 +27,6 @@ export default function PostToIPFS(props) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-     // mode: 'no-cors',
       body: JSON.stringify({boxes: props.boxes})
     })
 
@@ -35,34 +34,6 @@ export default function PostToIPFS(props) {
 
     setIpfsHash(result.ipfs.IpfsHash)
     setShowModal(true)
-
-   // console.log(result)
-    console.log('zoo ', result.ipfs.IpfsHash)
-
-
-
-
-// JSON.stringify(
-//    // console.log(await response)
-//     const result = response.json()
-
-    // need some sort of useEffects thing....
-
-
-    //setIPFSHash(response)
-
-
-
-//     .then(response => response.json())
-//     .then(data => {
-//         setIPFSHash({foo: 'moo'})
-//     })
-
-//     .then(response => response.json())
-//     .then(data =>  {
-//         console.log(data)
-//          setIPFSHash({foo: 'moo'})
-//     })
   }
 
    const hideModal = () => {
@@ -90,7 +61,6 @@ export default function PostToIPFS(props) {
 
           <Modal.Footer>
             <Button onClick={hideModal} variant="secondary">Close</Button>
-{/*             <Button variant="primary">Save changes</Button> */}
           </Modal.Footer>
         </Modal>
         </div>

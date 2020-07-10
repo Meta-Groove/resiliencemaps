@@ -9,25 +9,7 @@ import ScimSmartboard from "../ScimDartboard" // <-- rename this to upper camel 
 import CaptureImage from "../CaptureImage"
 import {Container as BSContainer, Row, Col, Button, Form  } from 'react-bootstrap'
 import Header from '../Header'
-// import { Router } from 'react-router-dom'
-// const { id } = useParams();
-
 import PostToIPFS from '../postToIPFS'
-
-
-// could use local or external mongo, or local mysql since its already nstalled (2**63)
-// why is form syntax highlighting different from others
-import ConnectNodes from "./ConnectNodes";
-import { CoordBox } from '../CoordBox.js'
-import { DrawStuff } from "../DrawStuff";
-import {paddingTop} from "html2canvas/dist/types/css/property-descriptors/padding";
-// import AddBoxes from './AddBoxes'
-// !!!!! @todo export as PNG ...
-// !!!!!! @todo ability to delete box
-// !!!!! @todo remove same node from connecting node in list
-//!!!!!!! fix deletion not working properly
-//!!!!!!@todo also fix lines that connect to something thats disappeared.
-//!!!!!!@todo move stuff in to components
 
 const styles: React.CSSProperties = {
 	width: 1024,
@@ -118,14 +100,6 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 	const [lineTo, setLineTo] = useState('')
 	const [itemToRemove, setItemToRemove] = useState('')
 
-	console.log('propswtfaaarggg', ipfsId)
-	// hmmmmm, dont seem to be able to get the text to split over lines when rendered
-	// maybe should just manually draw on all the other stuff...!?
-
-	// convert to svg
-	// create anchor at centre point of text instead of at corner of box
-	// create an svg background
-
 	const [, drop] = useDrop({
 		accept: ItemTypes.BOX,
 		drop(item: DragItem, monitor) {
@@ -190,19 +164,6 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 		allBoxes[lineFrom].connectedTo.push(lineTo)
 		// check item exists on array
 		setBoxes({...allBoxes})
-		// hmmmm, what is going on... mebs because of how updates are gand
-		// setBoxes(
-		// 	update(boxes, {
-		// 		[lineFrom]: {
-		// 			$merge: { left, top },
-		// 		},
-		// 	}),
-	//	)
-
-		// console.log(e)
-		// console.log(lineFrom)
-		// console.log(lineTo)
-		// console.log(boxes)
 	}
 
 	const updateSelectRemove = (e: any) => {
@@ -234,16 +195,6 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 		setBoxes({})
 	}
 
-
-	//!!!!!! @todo fix this --- was a demo bit at one point but doesnt work when removing
-
-//	let connection = [{x1: boxes.powerStation.top, y1: boxes.powerStation.left,  x2: boxes.cooking.top, y2: boxes.cooking.left}]
-	// do something that gives connections but here... hard code them
-	// so.... we can access state and pass that down to the thing to draw graphics...
-	// give them all a div tag so can removed when is about to update
-	//const nodeConnections:Array<any> = connection//[{x1:0, y1: 0, x2: 100, y2:100 }]
-	//!!!! actually this should be in state!!!!!
-	console.log(boxes)
 	return (
 
 
@@ -253,13 +204,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 			</Row>
 			<Row>
 				<Col sm="auto">
-			{/*<div className={'formWrapper'} style={{float:'left'}}>*/}
 
-			{/*<Row>*/}
-			{/*	<p>The Dartboard of Death is a planning tool designed to focus attention on key aspects of disaster mitigation and resilience. The <a href={'http://resiliencemaps.org/'}>original diagram</a> was created by <a href={'https://twitter.com/leashless'}>Vinay Gupta</a></p>*/}
-			{/*	<p>The diagram illustrates the 6 ways to die with critical infrastructure plotted geographically from local to global.</p>*/}
-			{/*</Row>*/}
-			{/*<Row style={{paddingTop:'4em'}}>*/}
 			{/*@todo add ids to formcontrol*/}
 			<div style={breathingSpace}></div>
 					<h2>Edit Content</h2>
@@ -305,9 +250,7 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 				{/*<Row>*/}
 					<Form style={formStyle}>
 						<Form.Row>
-							{/*<Col.>*/}
 						{/*<Form.Label htmlFor="connectFrom">Connect</Form.Label>*/}
-						{/*<Form.Col>*/}
 						<Form.Group as={Col} sm={4}>
 						<Form.Control as={'select'} name="connectFrom" id="connectFromSelect" onChange={updateLineFrom}>
 							<option key={'selectLineFrom'} value={'selectLineFrom'}>Select</option>
@@ -373,45 +316,15 @@ export const Container: React.FC<ContainerProps> = ({ hideSourceOnDrag, ipfsId} 
 			<Col>
 				{/*<PostToIPFS boxes={boxes}/>*/}
 		<div ref={drop} style={styles} id={'scimContainer'}>
-			{/*<form onSubmit={addAnother}>*/}
-			{/*	<label>*/}
-			{/*		Title:*/}
-			{/*		<input type="text" value={textBox} placeholder="enter text" onChange={updateText} />*/}
-			{/*	</label>*/}
-			{/*	<input type="submit" value="Create" />*/}
-			{/*</form>*/}
-			{/*<Box*/}
-			{/*	key={'foo'}*/}
-			{/*	id={'foo'}*/}
-			{/*	left={20}*/}
-			{/*	top={30}*/}
-			{/*	hideSourceOnDrag={hideSourceOnDrag}*/}
-			{/*>*/}
-			{/*	Hello world*/}
-			{/*</Box>*/}
-			{/*<AddBoxes/>*/}
 
-			{/*<SCIsmartboard connections={nodeConnections}/>*/}
 			<ScimSmartboard boxes={boxes}/>
-			{/*uhm.... why????*/}
-
-			{/*return {Object.keys(boxes).map((key) => {}*/}
-
-
-			{/*<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="200px">*/}
-			{/*	<line x1={500} y1={500} x2="1" y2="1" stroke="blue" stroke-width="5" />*/}
-			{/*</svg>*/}
 
 			{Object.keys(boxes).map((key) => {
 				const { left, top, title, connectedTo } = boxes[key]
 				return (
 					// <div className="aConnection">
 						<div key={"box"+key}>
-						{/*<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300px" height="200px">*/}
-						{/*	<line x1={left} y1={top} x2="1" y2="1" stroke="blue" stroke-width="5" />*/}
-						{/*</svg>*/}
-						{/*</div>*/}
-					{/*<CoordBox/>*/}
+
 						<Box
 							key={key}
 							id={key}
