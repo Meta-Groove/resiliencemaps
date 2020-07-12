@@ -36,13 +36,18 @@ export default function PostToIPFS(props) {
 
     setIpfsHash(result.ipfs.IpfsHash)
     setShowModal(true)
+    // setShowModal(true)
+    //   setClickedSave(false)
   }
 
    const hideModal = () => {
-        setShowModal(false)
+      setShowModal(false)
+      setClickedSave(false)
+      setIpfsHash('')
    }
 
       if (ipfsHash) {
+
       return (
       <div>
         <Button onClick={sendToIPFS}>Save</Button>
@@ -69,7 +74,7 @@ export default function PostToIPFS(props) {
         )
       }
       else {
-        console.log(clickedSave)
+
         return (
           <div>
             {clickedSave
