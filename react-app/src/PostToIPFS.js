@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Modal, Spinner } from 'react-bootstrap'
 
 
 // const modalStyle: React.CSSProperties = {
@@ -18,8 +18,10 @@ export default function PostToIPFS(props) {
 
   const [ipfsHash, setIpfsHash] = useState('')
   const [showModal, setShowModal] = useState(true)
+  const [clickedSave, setClickedSave] = useState(false)
 
   const sendToIPFS = async () => {
+    setClickedSave(true)
     // console.log('some button props: ', props)
     const response = await fetch('http://api.scim.metagroove.io/create', {
       method: 'post',
@@ -67,8 +69,32 @@ export default function PostToIPFS(props) {
         )
       }
       else {
-        return <Button onClick={sendToIPFS}>Save {ipfsHash}</Button>
+        console.log(clickedSave)
+        return (
+          <div>
+            {clickedSave
+              ?  <Button variant="primary" disabled>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                Saving
+              </Button>
+             :  <Button onClick={sendToIPFS}>Save</Button>
+            }
+          {/*<Button onClick={sendToIPFS}>Save</Button>*/}
+
+          </div>
+        )
       }
+
+
+
+
+
 
 
 }
