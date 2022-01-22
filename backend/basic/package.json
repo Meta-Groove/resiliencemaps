@@ -12,7 +12,7 @@
     "express": "^4.17.1",
     "hookrouter": "^1.2.3",
     "mysql": "^2.18.1",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^3.1.1"
   },
   "devDependencies": {
     "frisby": "^2.1.2",
